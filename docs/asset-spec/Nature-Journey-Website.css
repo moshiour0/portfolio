@@ -1,0 +1,224 @@
+/* 
+  Nature Journey Website - Color System & Safe Zones
+  Extracted from your 5-image sequence
+  01-hero-ascent(Valley) -> 03-projects-depths(Underwater) -> 02-experience-canopy(Monkey Tree) -> 04-contact-summit(Peak)
+*/
+
+:root {
+  /* Core Palette - From your natural images */
+  --forest-black: #0a1210;
+  --deep-moss: #12181a;
+  --card-bg: #12181a;
+  --border-moss: #1e2a2d;
+  
+  /* Your Dim Yellow Jacket - Muted, not bright */
+  --dim-yellow: #c2ad52;
+  --dim-yellow-hover: #d1bc6a;
+  --dim-yellow-dark: #a89640;
+  --dim-yellow-rgb: 194, 173, 82;
+  
+  /* River & Nature */
+  --river-blue: #4a9bc4;
+  --river-blue-light: #5fb3d9;
+  --moss-green: #6a8a4a;
+  --moss-light: #7aa05a;
+  --mist-gray: #a8b8b0;
+  --mist-light: #c0d0c0;
+  
+  /* Text */
+  --text-primary: #e8f0e8;
+  --text-secondary: #a8b8b0;
+  --text-muted: #7a8a7e;
+  
+  /* Entity Avoidance - Pixel accurate from visual grounding */
+  /* Format: 0-1000 normalized -> % */
+}
+
+/* Base */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--forest-black);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+/* Hero Sections with Safe Zone Text Placement */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  background: var(--forest-black);
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== SAFE ZONE OVERLAYS - COPY THESE ===== */
+
+/* 1.  01-hero-ascent - You with stick (left side) */
+.hero-first .safe-text-right {
+  position: absolute;
+  left: 45%;  /* Avoid you: you are 11.2% - 38.9% */
+  top: 15%;
+  width: 50%;
+  right: 5%;
+  z-index: 2;
+  /* x_min:112 y_min:232 x_max:389 y_max:1000 */
+}
+
+/* 2. 03-projects-depths - Fish in center */
+.hero-underwater .safe-text-top {
+  position: absolute;
+  left: 5%;
+  top: 10%; /* Fish is at 49.9% - 62.9%, top is safe */
+  width: 90%;
+  height: 30%;
+  z-index: 2;
+}
+.hero-underwater .safe-text-bottom {
+  position: absolute;
+  left: 5%;
+  bottom: 10%; /* Fish center, bottom safe */
+  width: 90%;
+  height: 20%;
+  z-index: 2;
+  /* Fish: 444,499 to 623,629 -> 44.4% 49.9% 17.9% 13% */
+}
+
+/* 3. 02-experience-canopy - Left branch */
+.hero-monkey .safe-text-right {
+  position: absolute;
+  left: 50%; /* Monkey 24% - 38.5%, so right 50%+ is safe */
+  top: 10%;
+  width: 45%;
+  height: 80%;
+  z-index: 2;
+  /* Monkey: 240,398 to 385,795 */
+}
+.hero-monkey .safe-text-top-left {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  width: 60%;
+  height: 25%;
+  z-index: 2;
+}
+
+/* 4. 04-contact-summit - You sitting on rock */
+.hero-peak .safe-text-top-right {
+  position: absolute;
+  left: 55%; /* You are 21.1% - 52.6%, right side safe */
+  top: 5%;
+  width: 40%;
+  height: 40%;
+  z-index: 2;
+  /* You: 211,231 to 526,928 */
+}
+.hero-peak .safe-text-bottom-right {
+  position: absolute;
+  right: 5%;
+  bottom: 15%;
+  width: 35%;
+  z-index: 2;
+}
+
+/* ===== ENTITY AVOIDANCE - DO NOT PUT TEXT HERE ===== */
+.avoid-you-first {
+  /* left:11.2% top:23.2% width:27.7% height:76.8% + 3% padding */
+  left: 8%; top: 20%; width: 34%; height: 80%;
+}
+.avoid-fish {
+  /* 44.4% 49.9% 17.9% 13% + padding */
+  left: 41%; top: 47%; width: 24%; height: 19%;
+}
+.avoid-monkey {
+  left: 21%; top: 37%; width: 20%; height: 46%;
+}
+.avoid-you-peak {
+  left: 18%; top: 20%; width: 38%; height: 76%;
+}
+
+/* Buttons - Using your dim yellow */
+.btn-primary {
+  background: var(--dim-yellow);
+  color: var(--forest-black);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-primary:hover {
+  background: var(--dim-yellow-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(var(--dim-yellow-rgb), 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--mist-gray);
+  padding: 12px 28px;
+  border-radius: 8px;
+}
+
+/* Cards matching nature */
+.card-nature {
+  background: var(--card-bg);
+  border: 1px solid var(--border-moss);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+}
+
+/* Gradient overlays to make text readable without covering entities */
+.gradient-top {
+  background: linear-gradient(to bottom, rgba(10,18,16,0.8) 0%, transparent 100%);
+}
+.gradient-right {
+  background: linear-gradient(to left, rgba(10,18,16,0.9) 0%, transparent 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-first .safe-text-right,
+  .hero-monkey .safe-text-right,
+  .hero-peak .safe-text-top-right {
+    left: 5%;
+    width: 90%;
+    top: auto;
+    bottom: 10%;
+    background: rgba(10,18,16,0.75);
+    padding: 16px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Utility for AI text placement */
+.safe-zone {
+  /* Add this class to any text container, AI will avoid entities */
+  position: absolute;
+  z-index: 10;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+}
+
+/* Code snippet for your website builder */
+/* 
+For AI that auto-places text:
+- Check image filename
+- If mountaineer_valley_sunrise: place text at left:45% top:15%
+- If underwater_river_trout: place at top:10% or bottom:10%
+- If monkey_mossy_branch: place at left:50%
+- If misty_mountain_peak: place at left:55% top:5%
+*/

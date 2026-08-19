@@ -1,0 +1,500 @@
+@import "tailwindcss";
+
+@theme {
+  /* The palette is taken from the footage rather than imposed on it.
+     Every clip is the same world — overcast, misty, forest — and the one
+     constant across all of them is the dim yellow raincoat, so that becomes
+     the identity colour. Ground is a near-black with a green cast to match
+     the forest, and the secondaries are the river and the moss. */
+  --color-bg: #0a0f0e;
+  --color-surface: #121a18;
+  --color-surface-2: #1a2422;
+  --color-line: #1f2b28;
+  --color-line-strong: #35463f;
+  --color-text: #eef2ec;
+  --color-muted: #aab7ad;
+  --color-dim: #78877d;
+  --color-accent: #c9b356;
+  --color-accent-hover: #dcc76a;
+  --color-accent-2: #83a0ad;
+  --color-accent-3: #7a9a55;
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.22, 1.15, 0.36, 1);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Lenis takes over scrolling; disable native smooth to avoid fighting it */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #0a0f0e;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #26332f;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a4d45;
+}
+
+/* ---------- Scroll reveal ---------- */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(34px) scale(0.985);
+  filter: blur(6px);
+  transition:
+    opacity 1s var(--ease-out-expo),
+    transform 1s var(--ease-out-expo),
+    filter 0.8s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Split-text characters ---------- */
+.char {
+  display: inline-block;
+  transform: translateY(110%) rotate(6deg);
+  opacity: 0;
+  transition:
+    transform 1.05s var(--ease-out-expo),
+    opacity 0.7s ease-out;
+  transition-delay: var(--char-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+.char-in {
+  transform: translateY(0) rotate(0deg);
+  opacity: 1;
+}
+
+/* ---------- Cinematic video backdrop scrim ----------
+   Every plate marks where its subject stands and where copy may go (see
+   docs/asset-spec/). The pool sits on the copy side and falls
+   away before it reaches the subject, over a vertical wash that keeps the nav
+   and footer legible on any frame. */
+.video-scrim {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 15, 14, 0.8) 0%,
+      rgba(10, 15, 14, 0.34) 24%,
+      rgba(10, 15, 14, 0.42) 62%,
+      rgba(10, 15, 14, 0.86) 100%
+    ),
+    rgba(10, 15, 14, 0.16);
+}
+
+.video-scrim--right {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 15, 14, 0.8) 0%,
+      rgba(10, 15, 14, 0.34) 24%,
+      rgba(10, 15, 14, 0.42) 62%,
+      rgba(10, 15, 14, 0.86) 100%
+    ),
+    linear-gradient(
+      to left,
+      rgba(10, 15, 14, 0.93) 0%,
+      rgba(10, 15, 14, 0.78) 26%,
+      rgba(10, 15, 14, 0.34) 52%,
+      rgba(10, 15, 14, 0.08) 70%,
+      transparent 82%
+    ),
+    rgba(10, 15, 14, 0.16);
+}
+
+/* Mirrored, for the one plate whose subject stands on the right. */
+.video-scrim--left {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 15, 14, 0.8) 0%,
+      rgba(10, 15, 14, 0.34) 24%,
+      rgba(10, 15, 14, 0.42) 62%,
+      rgba(10, 15, 14, 0.86) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(10, 15, 14, 0.93) 0%,
+      rgba(10, 15, 14, 0.78) 26%,
+      rgba(10, 15, 14, 0.34) 52%,
+      rgba(10, 15, 14, 0.08) 70%,
+      transparent 82%
+    ),
+    rgba(10, 15, 14, 0.16);
+}
+
+/* Centre-subject plates: no lateral pool, or it would darken the subject. */
+.video-scrim--even {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 15, 14, 0.82) 0%,
+      rgba(10, 15, 14, 0.3) 26%,
+      rgba(10, 15, 14, 0.38) 60%,
+      rgba(10, 15, 14, 0.88) 100%
+    ),
+    rgba(10, 15, 14, 0.2);
+}
+
+/* Narrow screens collapse the safe zones: copy takes the full width, so the
+   wash becomes vertical regardless of side. */
+@media (max-width: 768px) {
+  .video-scrim,
+  .video-scrim--right,
+  .video-scrim--left,
+  .video-scrim--even {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 15, 14, 0.74) 0%,
+        rgba(10, 15, 14, 0.3) 24%,
+        rgba(10, 15, 14, 0.58) 58%,
+        rgba(10, 15, 14, 0.93) 100%
+      ),
+      rgba(10, 15, 14, 0.28);
+  }
+}
+
+/* ---------- Frame-fitted typography ----------
+   The aligned column is a container, so `cqw` is a share of the *safe zone*,
+   not the window. Sizes are derived rather than picked:
+
+     column width  W  = 56% of a 1152px shell        ≈ 645px on a 1440 frame
+     display face advance                            ≈ 0.55em per character
+     longest section title "Capabilities"            = 12 characters
+
+   A title at 8.4cqw is 0.084·W ≈ 54px, so it runs 12 × 0.55 × 54 ≈ 356px —
+   about 55% of the column, which leaves the line unbroken with margin to
+   spare. Each size is then capped in `vh` so a short viewport shrinks type
+   instead of pushing the section past one frame, and floored in `rem` so it
+   never drops below a readable size. */
+.section-column {
+  container-type: inline-size;
+}
+
+/* Safe-zone columns. Below `lg` the safe zones collapse and copy takes the
+   full width, matching the mobile rule in the asset spec. */
+@media (min-width: 1024px) {
+  .safe-column {
+    width: var(--col);
+  }
+  .safe-right {
+    margin-left: auto;
+  }
+  .safe-left {
+    margin-right: auto;
+  }
+}
+
+@utility fit-title {
+  font-size: clamp(2rem, min(9.2cqw, 6vh), 4rem);
+  line-height: 1.05;
+}
+
+@utility fit-lead {
+  font-size: clamp(1.05rem, min(3.7cqw, 2.5vh), 1.375rem);
+  line-height: 1.55;
+}
+
+@utility fit-meta {
+  font-size: clamp(0.72rem, min(2.1cqw, 1.5vh), 0.875rem);
+}
+
+/* Card interiors are budgeted in `vh`: the carousel is handed the height left
+   over after the heading and controls, and the card must live inside it. */
+@utility fit-card-title {
+  font-size: clamp(1.35rem, 3.2vh, 2.15rem);
+  line-height: 1.12;
+}
+
+@utility fit-card-kind {
+  font-size: clamp(0.9rem, 2vh, 1.1rem);
+}
+
+@utility fit-card-body {
+  font-size: clamp(0.9rem, 2vh, 1.0625rem);
+  line-height: 1.5;
+}
+
+@utility fit-card-meta {
+  font-size: clamp(0.78rem, 1.6vh, 0.9rem);
+}
+
+/* ---------- Backdrop framing ----------
+   A 16:9 plate on a 390x844 phone can only show ~26% of its width once it
+   fills the height. Which 26% is the whole question: centred on the frame it
+   lands on empty landscape, because in every plate the subject stands between
+   10% and 55%. So each clip carries a second focal point for narrow screens,
+   taken from the subject box in the asset spec, and the crop window is centred
+   on the person rather than the middle of the shot. Still full-bleed — the
+   framing moves, not the fit. */
+.backdrop-video {
+  object-position: var(--focus-wide, 50% 50%);
+}
+
+@media (max-width: 900px) {
+  .backdrop-video {
+    object-position: var(--focus-narrow, 50% 50%);
+  }
+}
+
+/* ---------- Carousel viewport + stage ----------
+   Two elements doing two jobs.
+
+   The viewport is the clip box. It clips horizontally, which is what keeps
+   cards off the subject of the clip behind and off the side of a phone, and a
+   mask fades them to nothing before they reach that edge so the cut is never
+   visible. Its vertical padding is cancelled by an equal negative margin, so
+   it occupies exactly the stage's height in layout while giving the deck room
+   to overflow up and down without being sliced.
+
+   The stage is the sized element the cards are positioned against. The height
+   belongs here, not on the viewport — putting the negative margin on the sized
+   element dragged the whole deck up into the section heading. */
+.carousel-viewport {
+  --stage-air: 120px;
+  margin-block: calc(-1 * var(--stage-air));
+  padding-block: var(--stage-air);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 18%,
+    #000 82%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* ---------- Spiral carousel ambient glow ---------- */
+.spiral-glow {
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(46% 60% at 50% 38%, #c9b35630 0%, transparent 68%),
+    radial-gradient(38% 46% at 68% 66%, #83a0ad28 0%, transparent 70%),
+    radial-gradient(34% 42% at 28% 70%, #7a9a5522 0%, transparent 72%);
+  filter: blur(6px);
+  animation: spiral-breathe 7s ease-in-out infinite alternate;
+}
+
+@keyframes spiral-breathe {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+/* ---------- Hero entrance curtain ---------- */
+.curtain {
+  transform: translateY(0);
+  transition: transform 1.1s var(--ease-out-expo);
+  transition-delay: 120ms;
+}
+
+.curtain-raised {
+  transform: translateY(-100%);
+}
+
+/* ---------- Hero glow orb ---------- */
+.hero-orb {
+  background: radial-gradient(closest-side, #c9b35640, #83a0ad2b 55%, transparent 75%);
+  filter: blur(46px);
+  animation: orb-pulse 6.5s ease-in-out infinite alternate;
+}
+
+@keyframes orb-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+/* ---------- Animated aurora field ---------- */
+.aurora {
+  background:
+    radial-gradient(58% 46% at 68% 34%, #16211c 0%, transparent 62%),
+    radial-gradient(48% 44% at 18% 78%, #141d22 0%, transparent 60%),
+    radial-gradient(60% 50% at 50% 8%, #1b2418 0%, transparent 64%),
+    #0a0f0e;
+  background-size:
+    140% 140%,
+    150% 150%,
+    130% 130%,
+    100% 100%;
+  animation: aurora-drift 34s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift {
+  0% {
+    background-position:
+      12% 22%,
+      82% 78%,
+      50% 0%,
+      0 0;
+  }
+  50% {
+    background-position:
+      78% 46%,
+      22% 42%,
+      36% 24%,
+      0 0;
+  }
+  100% {
+    background-position:
+      34% 74%,
+      64% 12%,
+      68% 8%,
+      0 0;
+  }
+}
+
+/* ---------- Text / surface helpers ---------- */
+@utility text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-text) 0%,
+    var(--color-text) 34%,
+    var(--color-accent) 62%,
+    var(--color-accent-2) 88%,
+    var(--color-accent-3) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-sweep 9s ease-in-out infinite alternate;
+}
+
+@keyframes gradient-sweep {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@utility panel {
+  background: linear-gradient(180deg, #eef2ec0b, #eef2ec04);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(12px);
+}
+
+@utility hairline {
+  border-color: var(--color-line);
+}
+
+@utility glow-accent {
+  box-shadow:
+    0 0 0 1px #c9b35633,
+    0 12px 48px -12px #c9b35666;
+}
+
+/* Card face used inside the rotating ring — readable over the live backdrop. */
+@utility card-face {
+  background:
+    linear-gradient(165deg, #eef2ec10 0%, #eef2ec05 42%, #eef2ec02 100%),
+    rgba(10, 15, 14, 0.86);
+  border: 1px solid var(--color-line-strong);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 1px 0 0 #eef2ec14 inset,
+    0 30px 80px -40px #000000,
+    0 0 60px -30px #c9b35650;
+}
+
+/* Grain overlay to break up flat gradients */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .char {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .aurora {
+    animation: none !important;
+  }
+  .text-gradient {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

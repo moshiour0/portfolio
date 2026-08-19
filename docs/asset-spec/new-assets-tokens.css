@@ -1,0 +1,27 @@
+/* Palette + safe-zone tokens for the seven new mountain-journey plates. */
+:root {
+  --jacket-yellow: #c2ad52;
+  --jacket-wet: #b8a44d;
+  --backpack-black: #0f1419;
+  --mat-olive: #6b7b6f;
+  --carabiner-silver: #d0d6dc;
+  --stick-brown: #6b4e31;
+  --forest-green-dark: #1e3d1f;
+  --forest-green-mid: #2f5a2e;
+  --moss-green: #4a6b3a;
+  --river-dark: #3a424a;
+  --fog-light: #c8d0d3;
+  --fog-heavy: #aab5b8;
+  --ochre-strata: #8b5e2e;
+  --charcoal-strata: #1c1e20;
+}
+
+/* Where the subject sits, and where copy may go, per plate. */
+.image-river      { --subject-x: 15%; --text-safe-x: 55%; --text-safe-w: 45%; }
+.image-forest     { --subject-x: 15%; --text-safe-x: 65%; --text-safe-w: 35%; }
+.image-ridge      { --subject-x: 10%; --text-safe-x: 50%; --text-safe-w: 50%; }
+.image-education  { --subject-x: 20%; --text-safe-x: 60%; --text-safe-w: 40%; }
+.image-skills     { --subject-x: 25%; --text-safe-x: 62%; --text-safe-w: 38%; }
+.image-philosophy { --subject-x: 22%; --text-safe-x: 50%; --text-safe-w: 50%; }
+/* Flipped: subject on the RIGHT, so copy takes the LEFT. */
+.image-exploring  { --subject-x: 55%; --text-safe-side: right; --text-safe-x: 0%; --text-safe-w: 45%; }

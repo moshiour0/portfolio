@@ -1,0 +1,233 @@
+{
+  "project": "mountain_journey_portfolio",
+  "global_constants": {
+    "subject_identity": "22yo guy from reference photo, short black hair, light skin",
+    "wearing": {
+      "jacket": "#c2ad52 dim muted yellow raincoat, wet droplets",
+      "pants": "#1E2326 black waterproof",
+      "shoes": "#2A2D2E hiking boots"
+    },
+    "equipment": {
+      "backpack": "#0F1419 black mountaineering 60L",
+      "mat": "#6B7B6F olive grey rolled sleeping mat on top",
+      "carabiners": "#D0D6DC silver 4x clipped side",
+      "stick": "#6B4E31 wooden hiking stick, natural brown"
+    },
+    "style": "cinematic 16:9, ultra-realistic, Dark series mood, overcast, light rain, heavy mist, photoreal",
+    "camera_rule": "back-view or back 3/4, left/right rule for text safe void"
+  },
+  "images": [
+    {
+      "id": "01_river",
+      "file": "misty_riverbank_back_view.webp",
+      "section": "intro",
+      "title": "River Crossing Struggle",
+      "composition": {
+        "subject": {
+          "side": "left",
+          "x": "15%",
+          "y": "20%",
+          "w": "35%",
+          "pose": "standing back-view, holding stick right hand, looking at river"
+        },
+        "text_safe": {
+          "side": "right",
+          "x": "55%",
+          "y": "0%",
+          "w": "45%",
+          "type": "misty void over turbulent river"
+        }
+      },
+      "colors": {
+        "river_water": ["#2F3439", "#3A424A", "#4A545C"],
+        "rapids_white": "#E8EDEE",
+        "mud_bank": ["#4A3F35", "#5C5246"],
+        "forest_left": ["#1E3D1F", "#2F5A2E", "#3A6A36"],
+        "fog": ["#C8D0D3", "#A9B4B9", "#D1D9DC"]
+      },
+      "environment": "turbulent river center-right 40-100%, rocky dark banks #3B3F44, dense green forest both sides, low fog"
+    },
+    {
+      "id": "02_forest_climb",
+      "file": "misty_forest_hike_bofore_rocky_hike.webp",
+      "section": "pillars",
+      "title": "Forest Uphill Climb",
+      "composition": {
+        "subject": {
+          "side": "left",
+          "x": "15%",
+          "y": "25%",
+          "w": "35%",
+          "pose": "back-side climbing steep muddy trail head down tired"
+        },
+        "text_safe": {
+          "side": "right",
+          "x": "65%",
+          "y": "0%",
+          "w": "35%",
+          "type": "heavy thick mist full void"
+        }
+      },
+      "colors": {
+        "trail_mud": ["#3D332A", "#4A3E33", "#5A5045"],
+        "moss": ["#2E4D24", "#3A5F2D", "#4A6B3A"],
+        "tree_trunk": "#2B221A",
+        "fog": ["#AAB5B8", "#D1D9DC"]
+      },
+      "environment": "steep muddy trail 35-70%, fallen mossy log 45-85% moss #4A6B3A, mossy trees left 0-40%"
+    },
+    {
+      "id": "03_rocky_ridge",
+      "file": "misty_mountain_climb_bofore_the_peak.webp",
+      "section": "achievements",
+      "title": "Rocky Ridge Before Peak",
+      "composition": {
+        "subject": {
+          "side": "left",
+          "x": "10%",
+          "y": "20%",
+          "w": "38%",
+          "pose": "back-view hands on mossy rock climbing, stick strapped on backpack"
+        },
+        "text_safe": {
+          "side": "right",
+          "x": "50%",
+          "y": "0%",
+          "w": "50%",
+          "type": "open cloudy sky and clouds below valley"
+        }
+      },
+      "colors": {
+        "rocks": ["#3E4449", "#4A5055", "#5A6065"],
+        "moss_on_rock": ["#5A6F45", "#6B7D4E"],
+        "clouds_below": ["#E9EEF0", "#DDE3E6"],
+        "sky": ["#C2C8CC", "#ADB8BE"]
+      },
+      "environment": "rocky ridge left diagonal, clouds below you, valley tiny far below green-grey #5A6A5E through mist"
+    },
+    {
+      "id": "04_education",
+      "file": "EDUCATION.webp",
+      "section": "education",
+      "title": "Education - Foundations",
+      "composition": {
+        "subject": {
+          "side": "left-center",
+          "x": "20%",
+          "y": "25%",
+          "w": "35%",
+          "pose": "sitting on mossy rock side-profile reading wet notebook"
+        },
+        "text_safe": {
+          "side": "right",
+          "x": "60%",
+          "y": "0%",
+          "w": "40%",
+          "type": "fog void light rain"
+        }
+      },
+      "colors": {
+        "strata_wall": {
+          "ochre": ["#8B5E2E", "#B07A3B"],
+          "charcoal": ["#1C1E20", "#2A2D30"],
+          "moss_stripe": ["#3F5A32", "#4A6740"],
+          "rust": "#6B4423"
+        },
+        "notebook": ["#E8E0C9", "#D9D1B8"],
+        "moss_boulder": ["#4A5F3A", "#3E5234"],
+        "fog": ["#B8C2C5", "#D0D8DA"]
+      },
+      "environment": "layered sedimentary cliff left 0-30%, mossy boulder behind 50-70%, stick leaning 55-60%"
+    },
+    {
+      "id": "05_skills",
+      "file": "SKILLS.webp",
+      "section": "skills",
+      "title": "Skills - Technical Skills",
+      "composition": {
+        "subject": {
+          "side": "center-left",
+          "x": "25%",
+          "y": "15%",
+          "w": "40%",
+          "pose": "sitting on log practicing rope knot fixing carabiner close-up hands"
+        },
+        "text_safe": {
+          "side": "right",
+          "x": "62%",
+          "y": "0%",
+          "w": "38%",
+          "type": "dark mist clean"
+        }
+      },
+      "colors": {
+        "rope": ["#4A4E51", "#5A5E62"],
+        "carabiners_ground": "#D1D6D8",
+        "slate_rock": ["#0D1215", "#1A2126"],
+        "frost": ["#EAF2F5", "#DDE8EB", "#C5D8E0"],
+        "moss": ["#3D5A2E", "#4E6B3B"]
+      },
+      "environment": "black backpack left 5-30% on log, stick on ground 20-35% diagonal, frost rock foreground left 0-20% with ice crystals"
+    },
+    {
+      "id": "06_philosophy",
+      "file": "Philosophy.webp",
+      "section": "about",
+      "title": "About - Curiosity & Philosophy",
+      "composition": {
+        "subject": {
+          "side": "left-center",
+          "x": "22%",
+          "y": "30%",
+          "w": "30%",
+          "pose": "sitting on mossy rock hands on knees looking right at fog valley philosophical"
+        },
+        "text_safe": {
+          "side": "right",
+          "x": "50%",
+          "y": "0%",
+          "w": "50%",
+          "type": "vast empty pale fog with warm sun break"
+        }
+      },
+      "colors": {
+        "tree_trunk": ["#2F251D", "#3D3228"],
+        "branches": "#1A1A1A",
+        "moss_rocks": ["#5B704A", "#4C5E3D", "#6A7E5A"],
+        "fog_valley": ["#C8CFD2", "#D8DEE0"],
+        "sun_break": ["#E6D9B8", "#D8C9A7", "#EADDC3"],
+        "sky_clouds": "#B8BFC4"
+      },
+      "environment": "lone weathered tree left 0-60% height top 0-45% branches, backpack left-bottom 13-30% on rock, stick left edge 6-17%"
+    },
+    {
+      "id": "07_exploring",
+      "file": "EXPLORING.webp",
+      "section": "exploring",
+      "title": "Currently Exploring - Open Threads",
+      "composition": {
+        "subject": {
+          "side": "right",
+          "x": "55%",
+          "y": "15%",
+          "w": "40%",
+          "pose": "right side back-view holding map left hand binoculars right hand looking LEFT at valley"
+        },
+        "text_safe": {
+          "side": "left",
+          "x": "0%",
+          "y": "0%",
+          "w": "45%",
+          "type": "emerald valley S-curve river open for text"
+        }
+      },
+      "colors": {
+        "valley_forest": ["#1E4A1F", "#2A5D28", "#3A6A36", "#4A7A48"],
+        "river_s_curve": ["#7A8FA0", "#9AAFBF", "#C2D0D8"],
+        "map_paper": ["#DDE2C6", "#C9D1A9"],
+        "mist": ["#D0D6D8", "#E3E8E9"]
+      },
+      "environment": "emerald valley with S-curve river left 0-65% same as image 01, rocky edge foreground bottom dark #3A4045 #4B5156"
+    }
+  ]
+}

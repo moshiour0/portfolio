@@ -1,0 +1,117 @@
+{
+  "palette": {
+    "forestBlack": "#0a1210",
+    "deepMoss": "#12181a",
+    "dimYellow": "#c2ad52",
+    "dimYellowHover": "#d1bc6a",
+    "riverBlue": "#4a9bc4",
+    "mossGreen": "#6a8a4a",
+    "mistGray": "#a8b8b0",
+    "textPrimary": "#e8f0e8"
+  },
+  "images": {
+    "01-hero-ascent.webp": {
+      "entity": "YOU_FIRST",
+      "bbox_1000": [
+        112,
+        232,
+        389,
+        1000
+      ],
+      "bbox_percent": {
+        "left": 11.2,
+        "top": 23.2,
+        "width": 27.7,
+        "height": 76.8
+      },
+      "avoid": "left-center",
+      "safeZones": [
+        {
+          "name": "right",
+          "left": "45%",
+          "top": "15%",
+          "width": "50%"
+        }
+      ]
+    },
+    "03-projects-depths.webp": {
+      "entity": "FISH",
+      "bbox_1000": [
+        444,
+        499,
+        623,
+        629
+      ],
+      "bbox_percent": {
+        "left": 44.4,
+        "top": 49.9,
+        "width": 17.9,
+        "height": 13.0
+      },
+      "avoid": "center",
+      "safeZones": [
+        {
+          "name": "top",
+          "left": "5%",
+          "top": "10%",
+          "height": "30%"
+        },
+        {
+          "name": "bottom",
+          "left": "5%",
+          "bottom": "10%",
+          "height": "20%"
+        }
+      ]
+    },
+    "02-experience-canopy.webp": {
+      "entity": "MONKEY",
+      "bbox_1000": [
+        240,
+        398,
+        385,
+        795
+      ],
+      "bbox_percent": {
+        "left": 24.0,
+        "top": 39.8,
+        "width": 14.5,
+        "height": 39.7
+      },
+      "avoid": "left-branch",
+      "safeZones": [
+        {
+          "name": "right",
+          "left": "50%",
+          "top": "10%",
+          "width": "45%"
+        }
+      ]
+    },
+    "04-contact-summit.webp": {
+      "entity": "YOU_PEAK",
+      "bbox_1000": [
+        211,
+        231,
+        526,
+        928
+      ],
+      "bbox_percent": {
+        "left": 21.1,
+        "top": 23.1,
+        "width": 31.5,
+        "height": 69.7
+      },
+      "avoid": "left-center-rock",
+      "safeZones": [
+        {
+          "name": "top-right",
+          "left": "55%",
+          "top": "5%",
+          "width": "40%",
+          "height": "40%"
+        }
+      ]
+    }
+  }
+}

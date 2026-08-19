@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+build/
+.env*
+!.env.example
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+.vercel
+
+# local copies of original media, not for the repo
+.assets-originals/
+
+.vercel

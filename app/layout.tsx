@@ -29,7 +29,7 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-export const SITE = "https://moshiour.vercel.app";
+export const SITE = "https://moshiour-portfolio.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

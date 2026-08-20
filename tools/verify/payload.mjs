@@ -1,0 +1,13 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch({ channel:'chromium', args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required'] });
+const p = await b.newPage({ viewport:{width:1440,height:900} });
+const media=[];
+p.on('response', r=>{ const u=r.url(); if(/\.(mp4|webm|jpg)$/i.test(u)) media.push([u.split('/').pop(), Math.round(Number(r.headers()['content-length']||0)/1024)]); });
+await p.goto(process.argv[2],{waitUntil:'load',timeout:60000});
+await p.waitForTimeout(4000);
+let kb=0; media.forEach(m=>kb+=m[1]);
+console.log('  files on first load:', media.map(m=>`${m[0]}(${m[1]}KB)`).join(', '));
+console.log('  total media KB:', kb);
+const st = await p.evaluate(()=>[...document.querySelectorAll('video')].map(v=>({p:v.poster?1:0,s:v.querySelectorAll('source').length})));
+console.log('  layers with sources:', st.filter(x=>x.s>0).length, 'of', st.length);
+await b.close();

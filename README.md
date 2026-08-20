@@ -5,6 +5,13 @@ Personal portfolio: Data Science, AI, Earth Observation and Software Engineering
 Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4 and
 Three.js / react-three-fiber.
 
+## Documentation
+
+**[The Handbook](docs/handbook/)** — full documentation of how this site is
+built: the video engine, the carousel maths, the type system, the performance
+work, every bug that was hit and how it was fixed, and recipes for extending
+it. Start at [docs/handbook/README.md](docs/handbook/README.md).
+
 ## What is here
 
 - **Cinematic backdrop** — eleven clips, one per section, crossfading as you

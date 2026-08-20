@@ -1,0 +1,1182 @@
+<title>Moshiour Portfolio Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+<style>
+/* ── tokens: light is the default, complete set ───────────────────────────
+   The palette is the documented site's own, turned inside out: its text
+   colour (#eef2ec) becomes this page's paper, its ground (#0a0f0e) becomes
+   this page's dark theme. The accent is the raincoat in both. */
+:root {
+  --paper:      #eef1ec;
+  --paper-2:    #e5eae4;
+  --paper-3:    #dbe1da;
+  --ink:        #131a17;
+  --ink-2:      #46534c;
+  --ink-3:      #6c7a72;
+  --rule:       #c9d1c9;
+  --rule-soft:  #dde3dc;
+  --accent:     #7d6a15;
+  --accent-ink: #5d4f0f;
+  --blue:       #3a5764;
+  --moss:       #4c6831;
+  --crit:       #8a3520;
+  --code-bg:    #e4e9e2;
+  --shadow:     0 1px 0 #ffffff80;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #0a0f0e;
+    --paper-2:    #111917;
+    --paper-3:    #18221f;
+    --ink:        #eef2ec;
+    --ink-2:      #a3b0a7;
+    --ink-3:      #78877d;
+    --rule:       #23302c;
+    --rule-soft:  #1a2422;
+    --accent:     #c9b356;
+    --accent-ink: #dcc76a;
+    --blue:       #83a0ad;
+    --moss:       #7a9a55;
+    --crit:       #d08163;
+    --code-bg:    #111917;
+    --shadow:     none;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:      #0a0f0e;
+  --paper-2:    #111917;
+  --paper-3:    #18221f;
+  --ink:        #eef2ec;
+  --ink-2:      #a3b0a7;
+  --ink-3:      #78877d;
+  --rule:       #23302c;
+  --rule-soft:  #1a2422;
+  --accent:     #c9b356;
+  --accent-ink: #dcc76a;
+  --blue:       #83a0ad;
+  --moss:       #7a9a55;
+  --crit:       #d08163;
+  --code-bg:    #111917;
+  --shadow:     none;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  line-height: 1.66;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── shell ─────────────────────────────────────────────────────────────── */
+.shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 56px);
+}
+
+@media (min-width: 1080px) {
+  .shell { grid-template-columns: 232px minmax(0, 1fr); gap: 60px; }
+}
+
+/* ── masthead ──────────────────────────────────────────────────────────── */
+.masthead {
+  grid-column: 1 / -1;
+  border-bottom: 2px solid var(--ink);
+  padding: 56px 0 26px;
+  margin-bottom: 46px;
+}
+
+.masthead .eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+
+.masthead h1 {
+  font-family: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 7vw, 4.1rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0 0 18px;
+  text-wrap: balance;
+}
+
+.masthead .standfirst {
+  font-size: clamp(1.02rem, 2.2vw, 1.18rem);
+  color: var(--ink-2);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.masthead .standfirst em { color: var(--ink); font-style: italic; }
+
+.colophon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 30px;
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule-soft);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+
+.colophon b { color: var(--ink-2); font-weight: 500; }
+.colophon a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+.colophon a:hover { color: var(--accent-ink); }
+
+/* ── chapter rail ──────────────────────────────────────────────────────── */
+.rail { display: none; }
+
+@media (min-width: 1080px) {
+  .rail {
+    display: block;
+    grid-column: 1;
+    align-self: start;
+    position: sticky;
+    top: 26px;
+    padding-bottom: 60px;
+  }
+}
+
+.rail h2 {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+
+.rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+
+.rail a {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 8px;
+  padding: 6px 0;
+  font-family: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  font-size: 14.5px;
+  line-height: 1.32;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-top: 1px solid var(--rule-soft);
+  transition: color .15s;
+}
+
+.rail li:last-child a { border-bottom: 1px solid var(--rule-soft); }
+.rail a .n { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-3); padding-top: 2px; }
+.rail a:hover { color: var(--ink); }
+.rail a.on { color: var(--accent); }
+.rail a.on .n { color: var(--accent); }
+
+/* ── article ───────────────────────────────────────────────────────────── */
+main { grid-column: 1 / -1; min-width: 0; padding-bottom: 90px; }
+@media (min-width: 1080px) { main { grid-column: 2; } }
+
+section.chapter { padding-top: 8px; margin-bottom: 68px; scroll-margin-top: 20px; }
+
+.chapter > header {
+  border-top: 2px solid var(--ink);
+  padding-top: 14px;
+  margin-bottom: 26px;
+}
+
+.chapter > header .num {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.19em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.chapter > header h2 {
+  font-family: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.65rem, 4vw, 2.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.chapter > header p {
+  color: var(--ink-2);
+  margin: 10px 0 0;
+  max-width: 66ch;
+}
+
+h3 {
+  font-family: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: 1.22rem;
+  letter-spacing: -0.005em;
+  margin: 36px 0 12px;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+h4 {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 28px 0 10px;
+}
+
+p, ul, ol { max-width: 68ch; }
+p { margin: 0 0 15px; }
+ul, ol { margin: 0 0 15px; padding-left: 20px; }
+li { margin-bottom: 7px; }
+li::marker { color: var(--ink-3); }
+
+strong { font-weight: 600; }
+em { font-style: italic; }
+
+a { color: var(--accent); }
+a:hover { color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+code {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.855em;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+pre {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12.6px;
+  line-height: 1.62;
+  background: var(--code-bg);
+  border-left: 2px solid var(--accent);
+  padding: 14px 16px;
+  margin: 0 0 18px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+pre code { background: none; padding: 0; font-size: inherit; }
+.cm { color: var(--ink-3); }
+.kw { color: var(--blue); }
+.st { color: var(--moss); }
+
+/* ── tables ────────────────────────────────────────────────────────────── */
+.tw { overflow-x: auto; margin: 0 0 20px; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 460px;
+  font-family: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  font-size: 14.5px;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--ink);
+  padding: 0 12px 7px 0;
+  vertical-align: bottom;
+}
+
+td { padding: 7px 12px 7px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+td:last-child, th:last-child { padding-right: 0; }
+td code { font-size: 12.4px; }
+
+/* ── figures: the measurement blocks ───────────────────────────────────── */
+.figs { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 0 0 22px;
+        grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); }
+
+.fig { background: var(--paper); padding: 13px 14px 14px; }
+
+.fig .lab {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--ink-3); display: block; margin-bottom: 7px;
+}
+
+.fig .val {
+  font-family: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  font-size: 1.5rem; font-weight: 600; line-height: 1; letter-spacing: -0.01em;
+  display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap;
+}
+
+.fig .was { color: var(--ink-3); font-size: 0.95rem; font-weight: 400; text-decoration: line-through; text-decoration-thickness: 1px; }
+.fig .arw { color: var(--ink-3); font-size: 0.8rem; font-family: "IBM Plex Mono", monospace; }
+.fig .now { color: var(--moss); }
+.fig .now.bad { color: var(--crit); }
+.fig .note { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--ink-3); margin-top: 6px; display: block; line-height: 1.4; }
+
+/* ── callouts ──────────────────────────────────────────────────────────── */
+.lesson {
+  border-left: 2px solid var(--blue);
+  background: var(--paper-2);
+  padding: 13px 16px;
+  margin: 0 0 20px;
+  max-width: 68ch;
+}
+
+.lesson .tag {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--blue); display: block; margin-bottom: 6px;
+}
+
+.lesson p { margin: 0; font-size: 0.96em; }
+.lesson p + p { margin-top: 9px; }
+
+.quote {
+  border-left: 2px solid var(--accent);
+  padding: 2px 0 2px 15px;
+  margin: 0 0 18px;
+  max-width: 66ch;
+  font-style: italic;
+  color: var(--ink-2);
+}
+.quote cite { display: block; font-style: normal; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-top: 7px; }
+
+/* ── the bug ledger ────────────────────────────────────────────────────── */
+.bug { border-top: 1px solid var(--rule); padding-top: 16px; margin-bottom: 26px; max-width: 68ch; }
+.bug.sev { border-top: 2px solid var(--crit); }
+
+.bug .id {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px; letter-spacing: 0.15em; color: var(--ink-3);
+}
+.bug.sev .id { color: var(--crit); }
+
+.bug h3 { margin: 5px 0 11px; font-size: 1.1rem; }
+
+.bug dl { display: grid; grid-template-columns: 74px minmax(0,1fr); gap: 4px 14px; margin: 0 0 12px; }
+.bug dt {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-3); padding-top: 5px;
+}
+.bug dd { margin: 0; }
+.bug dd p:last-child { margin-bottom: 0; }
+@media (max-width: 560px) {
+  .bug dl { grid-template-columns: 1fr; gap: 2px; }
+  .bug dt { padding-top: 9px; }
+}
+
+/* ── diagram ───────────────────────────────────────────────────────────── */
+figure { margin: 0 0 22px; max-width: 100%; }
+figure svg { width: 100%; height: auto; display: block; background: var(--paper-2); border: 1px solid var(--rule-soft); }
+figcaption { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-3); margin-top: 8px; line-height: 1.5; max-width: 60ch; }
+
+/* ── footer ────────────────────────────────────────────────────────────── */
+footer.end {
+  grid-column: 1 / -1;
+  border-top: 2px solid var(--ink);
+  padding: 22px 0 60px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  color: var(--ink-3);
+  line-height: 1.75;
+}
+footer.end a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+html { scroll-behavior: smooth; }
+</style>
+
+<div class="shell">
+
+  <header class="masthead">
+    <p class="eyebrow"><span>Build documentation</span><span>moshiour-portfolio.vercel.app</span><span>10 chapters</span></p>
+    <h1>Moshiour Portfolio Handbook</h1>
+    <p class="standfirst">You supplied eleven video clips, a portrait, an asset spec and a 36-page written brief. Everything else was built from that. This is the record of <em>how</em> — including everything that went wrong.</p>
+    <div class="colophon">
+      <span><b>Stack</b> Next.js 16 · React 19 · TypeScript · Tailwind v4 · three.js</span>
+      <span><b>Source</b> ~4,200 lines across 40 files</span>
+      <span><b>Repo</b> <a href="https://github.com/moshiour0/portfolio">moshiour0/portfolio</a></span>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="Chapters">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#c1"><span class="n">01</span><span>Overview</span></a></li>
+      <li><a href="#c2"><span class="n">02</span><span>The video system</span></a></li>
+      <li><a href="#c3"><span class="n">03</span><span>The 3D carousel</span></a></li>
+      <li><a href="#c4"><span class="n">04</span><span>Layout, type, colour</span></a></li>
+      <li><a href="#c5"><span class="n">05</span><span>Scroll &amp; navigation</span></a></li>
+      <li><a href="#c6"><span class="n">06</span><span>Performance</span></a></li>
+      <li><a href="#c7"><span class="n">07</span><span>The content model</span></a></li>
+      <li><a href="#c8"><span class="n">08</span><span>Failures &amp; fixes</span></a></li>
+      <li><a href="#c9"><span class="n">09</span><span>Extending it</span></a></li>
+      <li><a href="#c10"><span class="n">10</span><span>Verification</span></a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- ══ 01 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c1">
+      <header>
+        <span class="num">Chapter 01</span>
+        <h2>Overview</h2>
+        <p>What the site is, what every file does, and the one architectural rule everything else follows.</p>
+      </header>
+
+      <p>A single-page narrative portfolio with five supporting routes. The page tells one story — scrolling down is climbing up — and each section carries a cinematic plate drawn from your own footage.</p>
+
+      <p>The visual concept comes straight from the clips: valley floor → river → forest → beneath the water → canopy → strata → ridge → lone tree → survey point → summit. That ordering is not decorative. It is the site's information architecture.</p>
+
+      <h3>The stack</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Layer</th><th>Choice</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Framework</td><td>Next.js 16, App Router</td><td>Every route statically prerendered</td></tr>
+          <tr><td>UI</td><td>React 19</td><td>All animation deliberately bypasses it</td></tr>
+          <tr><td>Language</td><td>TypeScript 5.7</td><td>A missing content field is a build error</td></tr>
+          <tr><td>Styles</td><td>Tailwind v4</td><td><code>@theme</code> tokens, <code>@utility</code> fitted type, no config file</td></tr>
+          <tr><td>3D</td><td>three.js + r3f</td><td>The node mesh behind clip-less sections</td></tr>
+          <tr><td>Scroll</td><td>lenis</td><td>Eased wheel scrolling — desktop only</td></tr>
+          <tr><td>Host</td><td>Vercel</td><td>Static output, global CDN</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>How a render actually happens</h3>
+      <ol>
+        <li><strong>Build time.</strong> Next prerenders every route. <code>lib/content.ts</code> is read at build, so all copy is in the HTML.</li>
+        <li><strong>First paint.</strong> Aurora gradient, hero poster, all text. No video requested yet.</li>
+        <li><strong>Hydration.</strong> <code>VideoBackdrop</code> checks reduced-motion, Save-Data and device class. Only if all pass does it emit a <code>&lt;source&gt;</code>.</li>
+        <li><strong>Scroll.</strong> One passive listener, sampled inside rAF, decides which section owns the viewport and crossfades the backdrop.</li>
+      </ol>
+
+      <h3>The one architectural rule</h3>
+      <div class="lesson">
+        <span class="tag">Rule</span>
+        <p><strong>Animation never goes through React.</strong> Every moving thing keeps its state in a <code>useRef</code> and writes directly to <code>element.style</code> inside a <code>requestAnimationFrame</code> loop. React mounts things and holds coarse state that changes rarely. A carousel spinning at 60fps triggers <em>zero</em> React renders.</p>
+        <p>The one exception is deliberate: the dot indicator's <code>setActive</code> is guarded with <code>prev === index ? prev : index</code>, so it fires a few times a minute, not sixty times a second.</p>
+      </div>
+
+      <p>This is the single biggest reason the site holds 60fps with a video playing, a WebGL mesh rendering, and five card decks alive at once.</p>
+    </section>
+
+    <!-- ══ 02 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c2">
+      <header>
+        <span class="num">Chapter 02</span>
+        <h2>The video backdrop system</h2>
+        <p>Eleven full-screen clips, one decoder, no stutter — from a desktop to a cheap phone. The most involved part of the build.</p>
+      </header>
+
+      <h3>Playback lives in the file, not in code</h3>
+      <p>You asked for two behaviours: hero and contact slow gradually to a standstill; everything else plays forward, then runs <em>backwards more slowly</em> and keeps going so the loop is invisible.</p>
+
+      <p>The obvious implementation is to drive <code>video.playbackRate</code> from a rAF loop. <strong>That was tried first and it was wrong</strong>, for two separate reasons:</p>
+
+      <ul>
+        <li><strong>Blink refuses rates below 1/16.</strong> Setting <code>playbackRate = 0.0622</code> throws <code>NotSupportedError</code>. A deceleration easing toward zero walks straight into that floor.</li>
+        <li><strong>It vibrated.</strong> Changing the rate every frame means the decoder is asked for frames at times that don't line up with the display refresh. Frames get held for uneven durations, and the eye reads that as shimmer.</li>
+      </ul>
+
+      <p>So the timing was baked into the video file, and the browser just plays it at rate 1.</p>
+
+      <h4>Deceleration — a logarithmic time-warp</h4>
+      <pre><code>setpts=(-TAU*log(1-T/S))/TB     <span class="cm">TAU = 2.2, S = duration + 0.2s</span></code></pre>
+      <p>As <code>T</code> approaches <code>S</code> the logarithm diverges, so timestamps stretch without bound — the clip glides to a halt and rests on its final frame. Set <code>loop = false</code> and it simply stops.</p>
+
+      <h4>Ping-pong — the reverse leg is inside the file</h4>
+      <pre><code>[0:v]split=2[f][r];
+[f]setpts=1.4*PTS[fwd];
+[r]reverse,setpts=2.2*PTS[rev];
+[fwd][rev]concat=n=2:v=1:a=0</code></pre>
+      <p>Because the reversed leg ends on frame 0, <code>loop = true</code> gives a seamless there-and-back forever. No seeking, no rAF, no decode stalls, no restart flash.</p>
+
+      <h3>The vibration fix</h3>
+      <p>Even with timing baked in, the first encodes shimmered. Probing the <em>actual</em> frame presentation times showed durations alternating <strong>0.0417s / 0.0833s</strong> — two different frame lengths in one clip. Two causes stacked:</p>
+      <ul>
+        <li><code>setpts=1.8</code> is not an integer ratio, so resampling produced a mix of held and fresh frames.</li>
+        <li>The sources were 24fps. On a 60Hz display that needs 3:2 pulldown — frames held for 3 refreshes, then 2, then 3. That cadence is visible.</li>
+      </ul>
+
+      <pre><code>minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1</code></pre>
+
+      <div class="figs">
+        <div class="fig"><span class="lab">Frame durations</span><div class="val"><span class="was">2</span><span class="arw">→</span><span class="now">1</span></div><span class="note">distinct, per clip</span></div>
+        <div class="fig"><span class="lab">Frame rate</span><div class="val"><span class="was">24</span><span class="arw">→</span><span class="now">30 fps</span></div><span class="note">divides evenly into 60</span></div>
+      </div>
+
+      <div class="lesson">
+        <span class="tag">Lesson</span>
+        <p>If a media behaviour can be expressed in the asset, put it in the asset. Runtime control of playback rate fights the decoder, the compositor and the display refresh all at once.</p>
+      </div>
+
+      <h3>One decoder, always</h3>
+      <p>Eleven <code>&lt;video&gt;</code> elements exist. At most <strong>one</strong> ever decodes — every other layer is paused at <code>opacity: 0</code>. That is what makes eleven full-screen clips affordable at all.</p>
+
+      <p>A layer only receives <code>&lt;source&gt;</code> children once <em>armed</em>, and arming covers the active clip plus the next one down the page:</p>
+
+      <pre><code><span class="kw">const</span> from = SECTION_ORDER.indexOf(activeId);
+<span class="kw">for</span> (<span class="kw">let</span> i = from + <span class="st">1</span>; i &lt; SECTION_ORDER.length; i++) {
+  <span class="kw">if</span> (backdropFor(SECTION_ORDER[i])) { next.add(SECTION_ORDER[i]); <span class="kw">break</span>; }
+}</code></pre>
+
+      <div class="figs">
+        <div class="fig"><span class="lab">Media in repo</span><div class="val">67 MB</div></div>
+        <div class="fig"><span class="lab">First load</span><div class="val"><span class="now">2,421 KB</span></div><span class="note">3 files · 2 of 11 layers armed</span></div>
+        <div class="fig"><span class="lab">Posters</span><div class="val"><span class="was">4.2 MB</span><span class="arw">→</span><span class="now">627 KB</span></div></div>
+      </div>
+
+      <h3>The crossfade</h3>
+      <p>Opacity over 1.1s, scale from 1.07 to 1.0 over 2.4s. The mismatch is intentional: the incoming clip is still settling long after it has finished fading in, which reads as a slow push-in rather than a cut. Both are compositor-only properties, so the crossfade costs the main thread nothing.</p>
+
+      <p>While a clip is fully opaque, the WebGL mesh underneath is invisible — so a 25-line pub/sub tells it to idle. Note the asymmetry: covering is announced <strong>1200ms late</strong> (after the crossfade ends, so the mesh is never missing while still partly visible) but uncovering is announced <strong>immediately</strong>.</p>
+
+      <h3>Full-bleed on a phone without losing you</h3>
+      <p>A 16:9 plate on a 390×844 phone, filling the height, shows about <strong>26% of its width</strong>. Which 26% is the whole question — in every plate you stand between 10% and 55%, never dead centre. A default centre crop lands on empty landscape.</p>
+
+      <div class="quote">
+        you should fit height width as well … otherwise video background have not meaning
+        <cite>Your rejection of the <code>object-fit: contain</code> attempt</cite>
+      </div>
+
+      <p>You were right — a letterboxed strip is not a background. The fix keeps <code>cover</code> and moves the <em>crop window</em>: every plate carries a second focal point, centred on the subject box from your asset spec.</p>
+
+      <pre><code>focus:       <span class="st">"50% 50%"</span>   <span class="cm">// wide screens</span>
+focusNarrow: <span class="st">"31% 56%"</span>   <span class="cm">// phones — centred on the person</span></code></pre>
+
+      <pre><code><span class="kw">@media</span> (max-width: 900px) {
+  .backdrop-video { object-position: <span class="kw">var</span>(--focus-narrow); }
+}</code></pre>
+
+      <p>Verified across all ten plates at 390×844 — every subject box lands inside the visible window, with <code>object-fit</code> still <code>cover</code>.</p>
+
+      <h3>Choosing sources per device</h3>
+      <div class="lesson">
+        <span class="tag">Gotcha</span>
+        <p>The <code>media</code> attribute on <code>&lt;source&gt;</code> <strong>does not work inside <code>&lt;video&gt;</code></strong>. It is honoured inside <code>&lt;picture&gt;</code>, but browsers dropped it for video. The selection <em>must</em> happen in JavaScript.</p>
+        <p>H.264 goes first on phones, WebM first on desktop. VP9 is smaller and desktops decode it in hardware — but on phones VP9 hardware decode is inconsistent, and offering it first can silently drop a device into a software decoder.</p>
+      </div>
+    </section>
+
+    <!-- ══ 03 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c3">
+      <header>
+        <span class="num">Chapter 03</span>
+        <h2>The 3D carousel</h2>
+        <p>One component, 665 lines, five sections. Auto-rotates, grabbable in any direction, snaps and holds long enough to read.</p>
+      </header>
+
+      <div class="tw"><table>
+        <thead><tr><th>Variant</th><th>Used by</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td><code>coverflow</code></td><td>pillars, projects, skills, exploring</td><td>Active card centred, upright, full size; neighbours scaled down, angled away, behind</td></tr>
+          <tr><td><code>orbit</code></td><td>research</td><td>Cards walk <em>around</em> the frame centre, leaving it permanently clear</td></tr>
+          <tr><td><code>ring</code></td><td>fallback</td><td>Cards on a cylinder rotating toward the viewer</td></tr>
+        </tbody>
+      </table></div>
+
+      <p><code>orbit</code> exists for one reason: the research plate has the fish <strong>dead centre</strong>, and you asked that cards move around it rather than sit on it.</p>
+
+      <h3>The orbit path — the interesting maths</h3>
+      <p>The obvious path is an ellipse circumscribing the subject. <strong>That was the first implementation and it was wrong.</strong> Measurement showed cards still covering <strong>19.5%</strong> of the fish.</p>
+
+      <p><strong>Why:</strong> an ellipse keeps a card's <em>centre point</em> clear. A card is a <strong>rectangle</strong>. At roughly 45° its corner reaches much further than its centre and cuts into the subject.</p>
+
+      <figure>
+        <svg viewBox="0 0 620 260" role="img" aria-label="Diagram comparing an elliptical card path, whose corners intrude on the centred subject, with a Minkowski box boundary that clears it at every angle">
+          <g font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor">
+            <!-- left: ellipse -->
+            <text x="18" y="20" opacity=".55">ELLIPTICAL PATH — corner intrudes</text>
+            <ellipse cx="155" cy="140" rx="118" ry="72" fill="none" stroke="currentColor" stroke-opacity=".28" stroke-dasharray="3 3"/>
+            <rect x="122" y="112" width="66" height="56" fill="var(--crit)" fill-opacity=".16" stroke="var(--crit)" stroke-opacity=".8"/>
+            <text x="139" y="145" font-size="9" fill="var(--crit)">subject</text>
+            <!-- intruding card at 45deg -->
+            <rect x="152" y="70" width="76" height="52" fill="var(--accent)" fill-opacity=".22" stroke="var(--accent)"/>
+            <circle cx="238" cy="89" r="2.5" fill="var(--accent)"/>
+            <text x="196" y="62" font-size="9" fill="var(--crit)">19.5% covered</text>
+
+            <!-- right: minkowski -->
+            <text x="345" y="20" opacity=".55">MINKOWSKI BOX — clears at every angle</text>
+            <rect x="368" y="72" width="200" height="136" fill="none" stroke="currentColor" stroke-opacity=".28" stroke-dasharray="3 3"/>
+            <rect x="435" y="112" width="66" height="56" fill="var(--moss)" fill-opacity=".16" stroke="var(--moss)" stroke-opacity=".8"/>
+            <text x="452" y="145" font-size="9" fill="var(--moss)">subject</text>
+            <rect x="492" y="46" width="76" height="52" fill="var(--accent)" fill-opacity=".22" stroke="var(--accent)"/>
+            <circle cx="568" cy="72" r="2.5" fill="var(--accent)"/>
+            <text x="500" y="38" font-size="9" fill="var(--moss)">0.6% covered</text>
+            <line x1="501" y1="140" x2="568" y2="140" stroke="currentColor" stroke-opacity=".4"/>
+            <text x="512" y="153" font-size="8.5" opacity=".6">needX</text>
+            <line x1="468" y1="112" x2="468" y2="72" stroke="currentColor" stroke-opacity=".4"/>
+            <text x="474" y="94" font-size="8.5" opacity=".6">needY</text>
+          </g>
+        </svg>
+        <figcaption>Two rectangles miss each other exactly when one centre lies outside the Minkowski sum of the two — a box whose half-size is the sum of their half-sizes. Riding that boundary instead of an ellipse dropped subject coverage from 19.5% to 0.6%.</figcaption>
+      </figure>
+
+      <pre><code><span class="kw">const</span> halfW = (geometry.cardWidth * scale) / <span class="st">2</span>;
+<span class="kw">const</span> halfH = (geometry.cardHeight * scale) / <span class="st">2</span>;
+<span class="kw">const</span> needX = geometry.koW + halfW + <span class="st">10</span>;
+<span class="kw">const</span> needY = geometry.koH + halfH + <span class="st">10</span>;
+
+<span class="cm">// distance to the box boundary along this heading =</span>
+<span class="cm">// the smaller of the two axis crossings</span>
+<span class="kw">const</span> t = Math.min(
+  needX / Math.max(Math.abs(ct), EPS),
+  needY / Math.max(Math.abs(st), EPS),
+);</code></pre>
+
+      <p>Because a box is the intersection of two slabs, that distance is simply the <strong>smaller</strong> of <code>needX/|cos|</code> and <code>needY/|sin|</code>. The <code>EPS</code> guard prevents division by zero on the axes.</p>
+
+      <div class="figs">
+        <div class="fig"><span class="lab">Subject covered</span><div class="val"><span class="was">78%</span><span class="arw">→</span><span class="now">0.6%</span></div><span class="note">no keep-out → ellipse (19.5%) → Minkowski</span></div>
+      </div>
+
+      <h3>The budget is a floor, not a ceiling</h3>
+      <div class="quote">
+        you make cards text bigger thats why card bigger then cards crops upper and lower side
+        <cite>Your bug report</cite>
+      </div>
+      <p>The stage height had been clamped <em>to</em> the budget, so when type grew the cards were sliced. Now:</p>
+      <pre><code><span class="kw">const</span> cardHeight  = Math.round(tallest || budget * <span class="st">0.85</span>);
+<span class="kw">const</span> stageHeight = Math.max(budget, cardHeight + <span class="st">24</span>);</code></pre>
+      <p>Where that makes a section overflow a short laptop screen, the <em>padding</em> yields instead. The cards never get cut again. Cards also top out at <code>z-index: 30</code> against the heading's <code>z-50</code> — in front of everything except the title, exactly as you specified.</p>
+
+      <h3>Drag, fling, snap, hold</h3>
+      <p>A five-state machine in a ref, ticked by one rAF loop: <code>auto → drag → fling → snap → hold → auto</code>.</p>
+
+      <div class="lesson">
+        <span class="tag">Technique</span>
+        <p>Easing uses <code>1 - exp(-k · dt)</code>, not <code>× 0.1</code> per frame. The naive form is frame-rate dependent — it eases twice as fast at 120Hz as at 60Hz. The exponential form gives identical motion on any display.</p>
+        <p><code>dt</code> is clamped to <code>0.05</code>, so a tab backgrounded for ten seconds doesn't teleport the deck on the next frame. Velocity sampling has an 8ms floor, so two events in the same millisecond can't divide by a near-zero <code>dt</code>.</p>
+      </div>
+
+      <h3>The invisible edge</h3>
+      <div class="quote">
+        in cards when cards comes and gone there is a box shape cut the cards its awkward
+        <cite>Your bug report</cite>
+      </div>
+      <p>Removing <code>overflow: hidden</code> broke three things at once — cards drifted onto the subject, and a phone got 1145px of horizontal overflow. The correct fix keeps the clip for layout but makes the cut invisible:</p>
+
+      <pre><code>mask-image: linear-gradient(<span class="kw">to right</span>,
+  transparent <span class="st">0%</span>, #000 <span class="st">18%</span>, #000 <span class="st">82%</span>, transparent <span class="st">100%</span>);
+mask-repeat: no-repeat;   <span class="cm">/* essential — otherwise it tiles */</span></code></pre>
+    </section>
+
+    <!-- ══ 04 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c4">
+      <header>
+        <span class="num">Chapter 04</span>
+        <h2>Layout, type and colour</h2>
+        <p>Why the palette is what it is, and why the font sizes now have arithmetic behind them.</p>
+      </header>
+
+      <h3>The palette is measured, not chosen</h3>
+      <p>Every clip is the same world — overcast, misty, forest — and the one constant across all eleven is <strong>your dim yellow raincoat</strong>. That became the identity colour.</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>Token</th><th>Value</th><th>Taken from</th></tr></thead>
+        <tbody>
+          <tr><td><code>--color-bg</code></td><td><code>#0a0f0e</code></td><td>Near-black with a green cast — forest shadow</td></tr>
+          <tr><td><code>--color-accent</code></td><td><code>#c9b356</code></td><td>Your raincoat</td></tr>
+          <tr><td><code>--color-accent-2</code></td><td><code>#83a0ad</code></td><td>The river</td></tr>
+          <tr><td><code>--color-accent-3</code></td><td><code>#7a9a55</code></td><td>The moss</td></tr>
+          <tr><td><code>--color-text</code></td><td><code>#eef2ec</code></td><td>Warm off-white — pure white is harsh over video</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>Because the accent appears in the footage in every section, highlighted text never looks pasted on. And the ground is not neutral grey — when the video fades out, what's underneath still belongs to the same world.</p>
+
+      <h3>Type that is calculated</h3>
+      <p>You asked why the font sizes had no mathematical basis. They do now. The copy column declares itself a container, so <code>cqw</code> is a share of the <em>measured safe zone</em>, not the window:</p>
+
+      <pre><code>column width  W = 56% of a 1152px shell    ≈ 645px on a 1440 frame
+display face advance                       ≈ 0.55em per character
+longest section title "Capabilities"       = 12 characters
+
+title at 8.4cqw = 0.084 × 645              ≈ 54px
+line length     = 12 × 0.55 × 54           ≈ 356px ≈ 55% of column</code></pre>
+
+      <p>Comfortably unbroken, with margin to spare. Each size then carries three bounds:</p>
+
+      <pre><code><span class="kw">@utility</span> fit-title {
+  font-size: clamp(<span class="st">2rem</span>, min(<span class="st">9.2cqw</span>, <span class="st">6vh</span>), <span class="st">4rem</span>);
+}</code></pre>
+
+      <ul>
+        <li><strong>Floor</strong> in <code>rem</code> — never drops below readable.</li>
+        <li><strong>Preferred</strong> is <code>min(cqw, vh)</code> — width-derived, <em>capped by height</em> so a short viewport shrinks type instead of pushing the section past one frame.</li>
+        <li><strong>Ceiling</strong> in <code>rem</code> — never becomes a billboard on a 4K monitor.</li>
+      </ul>
+
+      <p>That <code>min(9.2cqw, 6vh)</code> is the whole trick, and it is why "one section, one frame" holds across every screen tested.</p>
+
+      <h3>Safe-zone columns</h3>
+      <p>Each clip places its subject differently, so the copy column is sized <em>per section</em> — <code>columnPct={32}</code> for skills, <code>50</code> for pillars, <code>56</code> for exploring — derived from where that clip's subject ends in your asset spec. Below <code>lg</code> the safe zones collapse and copy takes the full width, matching the spec's mobile rule and the scrim, which also goes full-width below 768px.</p>
+
+      <div class="lesson">
+        <span class="tag">Detail</span>
+        <p>Sections use <code>min-h-[100svh]</code>, not <code>100vh</code>. On mobile browsers <code>vh</code> is measured against the viewport with toolbars <em>hidden</em>, so a <code>100vh</code> section is taller than the visible area until you scroll. <code>svh</code> measures the smallest state.</p>
+      </div>
+    </section>
+
+    <!-- ══ 05 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c5">
+      <header>
+        <span class="num">Chapter 05</span>
+        <h2>Scroll and navigation</h2>
+        <p>Eased scrolling on desktop, native on touch, proximity snap, and a hash landing on a page that grows eightfold while you scroll.</p>
+      </header>
+
+      <h3>Lenis, on desktop only</h3>
+      <pre><code><span class="kw">if</span> (window.matchMedia(<span class="st">"(prefers-reduced-motion: reduce), (pointer: coarse)"</span>).matches) {
+  <span class="kw">return</span>;
+}</code></pre>
+
+      <p>This is the single most important line in the mobile performance work. Lenis drives scroll position from JavaScript, frame by frame. On a desktop that's a worthwhile trade — a wheel is a coarse input. On a phone it <em>replaces hardware momentum scrolling with main-thread work</em>, and every frame then competes with video decoding.</p>
+
+      <h3>Proximity snap</h3>
+      <p>Once scrolling stops, the page looks at the nearest section edge. If you've already brought it <strong>most of the way in</strong> (within 30% of a viewport), it finishes the job. If you're <strong>mid-journey between two sections</strong>, it leaves you alone.</p>
+      <p>That distinction is what makes it <em>proximity</em> snap rather than mandatory snapping — it never fights someone deliberately scrolling past.</p>
+
+      <h3>Nav links that were dead on sub-pages</h3>
+      <p>The nav always called <code>scrollToId(id)</code>. That works on the homepage — but from <code>/projects</code> there <em>is</em> no <code>#research</code> element, so the click did nothing at all.</p>
+
+      <pre><code><span class="kw">const</span> onHome = usePathname() === <span class="st">"/"</span>;
+
+<span class="kw">const</span> go = (event, id) =&gt; {
+  <span class="kw">if</span> (!onHome) <span class="kw">return</span>;          <span class="cm">// let the &lt;Link&gt; navigate to /#id</span>
+  event.preventDefault();
+  scrollToId(id);
+  history.replaceState(<span class="kw">null</span>, <span class="st">""</span>, <span class="st">`#${id}`</span>);
+};</code></pre>
+
+      <p><code>replaceState</code> rather than <code>pushState</code> — so the back button returns to the previous <em>page</em>, not through every section you scrolled past.</p>
+
+      <h3>The hard half: landing on the right place</h3>
+      <div class="figs">
+        <div class="fig"><span class="lab">Homepage height</span><div class="val">1,900 <span class="arw">→</span> 14,851<span style="font-size:.7em">px</span></div><span class="note">as sections lay out and carousels measure</span></div>
+      </div>
+
+      <p>Scrolling immediately aims at a position that no longer exists a moment later. So <code>HashScroll</code> waits for the document height to stop changing:</p>
+
+      <pre><code><span class="cm">// height unchanged for a few consecutive frames = layout has landed</span>
+stableFor = height === lastHeight ? stableFor + <span class="st">1</span> : <span class="st">0</span>;
+<span class="kw">if</span> (!el || (stableFor &lt; <span class="st">6</span> &amp;&amp; waited &lt; <span class="st">120</span>)) {
+  raf = requestAnimationFrame(settleThenScroll);
+  <span class="kw">return</span>;
+}
+scrollToId(id);</code></pre>
+
+      <p>Then it re-confirms the landing at 1300, 2200, 3200 and 4400ms, because the carousels keep adding height afterwards and how long depends on which route you came from. Once within 6px the checks are no-ops.</p>
+
+      <div class="lesson">
+        <span class="tag">Technique</span>
+        <p>Every scroll listener here schedules a rAF and <em>cancels the previous one</em>, so a burst of scroll events produces exactly one computation per frame, not twenty. Reading <code>getBoundingClientRect()</code> directly in a scroll handler forces synchronous layout mid-scroll.</p>
+      </div>
+    </section>
+
+    <!-- ══ 06 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c6">
+      <header>
+        <span class="num">Chapter 06</span>
+        <h2>Performance</h2>
+        <p>The mobile investigation end to end — including an honest account of what the measuring instrument could not see.</p>
+      </header>
+
+      <div class="quote">
+        mobile experience is not good at all its not smooth in mobile phn but in dekstop its smooth experience
+        <cite>Your report</cite>
+      </div>
+
+      <h3>Measuring it first</h3>
+      <p>Profiled on an emulated 390×844 phone with the CPU throttled 4× via the DevTools Protocol. Baseline, scrolling the full page:</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>Metric</th><th>Baseline</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td>median frame</td><td>266.7 ms</td><td>a smooth frame is 16.7 ms</td></tr>
+          <tr><td>p95</td><td>666.7 ms</td><td></td></tr>
+          <tr><td>janky frames</td><td>83 of 86</td><td>not a tuning problem</td></tr>
+          <tr><td>long tasks</td><td>72, max 774 ms</td><td></td></tr>
+          <tr><td>backdrop-filters</td><td>48</td><td>each forces a layer <em>and</em> re-blurs behind it</td></tr>
+          <tr><td>blur filters</td><td>93</td><td>five decks × per-frame card blur</td></tr>
+          <tr><td>Lenis</td><td>active</td><td>scroll computed in JS on a touch device</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>The four structural fixes</h3>
+      <ol>
+        <li><strong>Native scrolling on touch</strong> — Lenis and the snap disabled on <code>(pointer: coarse)</code>.</li>
+        <li><strong>No WebGL on touch</strong> — previously this downshifted to a smaller mesh tier. But on a phone the mesh is behind an opaque clip almost everywhere, so the right answer wasn't a smaller mesh; it was <em>no mesh</em>.</li>
+        <li><strong>Idle, unblurred decks</strong> — IntersectionObserver gating plus <code>coarse ||</code> in front of every blur assignment.</li>
+        <li><strong>A <code>pointer: coarse</code> CSS block</strong> — glass becomes flat translucency, with surface opacity raised 0.86 → 0.93 to compensate for the lost blur. Over a dark scrim it looks near-identical and costs nothing.</li>
+      </ol>
+
+      <div class="figs">
+        <div class="fig"><span class="lab">backdrop-filters</span><div class="val"><span class="was">48</span><span class="arw">→</span><span class="now">0</span></div></div>
+        <div class="fig"><span class="lab">blur filters</span><div class="val"><span class="was">93</span><span class="arw">→</span><span class="now">8</span></div></div>
+        <div class="fig"><span class="lab">rAF calls / scroll</span><div class="val"><span class="was">1014</span><span class="arw">→</span><span class="now">194</span></div></div>
+        <div class="fig"><span class="lab">WebGL on touch</span><div class="val"><span class="was">on</span><span class="arw">→</span><span class="now">off</span></div></div>
+      </div>
+
+      <h3>Isolating what was left</h3>
+      <p>Structurally solved — but the median had barely moved. So: same build, three conditions.</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>Condition</th><th>Median</th><th>Janky</th><th>Long tasks</th></tr></thead>
+        <tbody>
+          <tr><td>video playing</td><td>250 ms</td><td>43 / 54</td><td>46</td></tr>
+          <tr><td>video stopped</td><td>267 ms</td><td>41 / 49</td><td>44</td></tr>
+          <tr><td><strong>reduced motion — no video</strong></td><td><strong>17 ms</strong></td><td>9 / 216</td><td>0</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>17 ms with no video against 250 ms with one. Everything remaining was decode. So: phone-specific encodes, scroll pausing, and a floor for weak devices.</p>
+
+      <div class="figs">
+        <div class="fig"><span class="lab">Hero clip, mobile</span><div class="val"><span class="was">3207 KB</span><span class="arw">→</span><span class="now">510 KB</span></div><span class="note">854×480 H.264 Main L3.1</span></div>
+        <div class="fig"><span class="lab">Playing mid-scroll</span><div class="val"><span class="now">0.08</span></div><span class="note">paused while moving, resumes after 180ms</span></div>
+        <div class="fig"><span class="lab">Weak-device floor</span><div class="val">≤2 cores</div><span class="note">or ≤2GB RAM → posters only</span></div>
+      </div>
+
+      <h3>An honest limitation</h3>
+      <div class="lesson">
+        <span class="tag">What the instrument could not see</span>
+        <p>After the mobile encodes landed, the harness median stayed around 200–280 ms. That is <strong>not</strong> a measure of a real phone.</p>
+        <p>Headless Chromium runs on SwiftShader — a <em>software</em> rasteriser with <strong>no hardware video decode</strong>. Every frame is decoded on the CPU and composited in software, then throttled a further 4×. On a real phone, decode happens in dedicated silicon and compositing on the GPU.</p>
+        <p>So the harness cannot show the video improvement, and no amount of tuning would have driven its number to 17 ms without removing video entirely. What it <em>can</em> measure honestly is <strong>structure</strong> — and those counts are device-independent. Know which of your measurements describe your code and which describe your measuring instrument.</p>
+      </div>
+
+      <h3>Desktop is deliberately untouched</h3>
+      <p>Verified live at 1440×900: <code>lenis true</code>, <code>webgl true</code>, <code>backdropFilters 52</code>, WebM sources, zero errors, no mobile encodes leaking through. Every mobile optimisation is gated behind <code>(pointer: coarse)</code> or a width query.</p>
+    </section>
+
+    <!-- ══ 07 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c7">
+      <header>
+        <span class="num">Chapter 07</span>
+        <h2>The content model</h2>
+        <p>Your 36-page brief became 956 lines of typed data — the single source of truth for every word on the site.</p>
+      </header>
+
+      <p>No CMS, no markdown files, no JSON blobs. One TypeScript module, because a missing field becomes a <em>build error</em> rather than a rendered gap; because everything is prerendered so all copy sits in the HTML; and because renaming a field shows you every component that used it.</p>
+
+      <h3>Rules encoded from your brief</h3>
+      <pre><code><span class="cm">/** Verified links only, as the spec requires. */</span>
+<span class="kw">export const</span> links: SocialLink[] = [ ... ];
+
+<span class="cm">/** Honest label: Project / Research Exploration /
+    Architecture Study / Competition Project. */</span>
+label: <span class="kw">string</span>;
+
+<span class="cm">/** At most five, per the card design rule. */</span>
+tags: <span class="kw">string</span>[];</code></pre>
+
+      <p>The <code>label</code> field matters. Your brief was insistent that work be described accurately — a research exploration should not be presented as a shipped project. That distinction lives in the <em>data</em>, so every surface that renders a project renders the honest label with it.</p>
+
+      <p><strong>No invented metrics.</strong> Nothing in the file states a statistic that was not in your brief. Where a project has no measured outcome, none is claimed.</p>
+
+      <h3>One project, two surfaces</h3>
+      <p><code>Project</code> carries a short form and a <code>detail</code> object. The carousel card reads the top-level fields; <code>app/projects/[slug]/page.tsx</code> reads <code>detail</code> and generates a page per project at build time. Add a project to the array and its page exists — no routing to write.</p>
+
+      <h3>What was removed</h3>
+      <p>The Allama Iqbal scholarship content was removed at your request, in full, before anything was committed or published. Verified absent from source, from the build output, and from the deployed site.</p>
+
+      <div class="lesson">
+        <span class="tag">Worth knowing</span>
+        <p>When checking something is genuinely gone rather than hidden, grep the <em>build output</em> as well as the source — content can survive in a stale <code>.next/</code> long after it leaves the code.</p>
+      </div>
+    </section>
+
+    <!-- ══ 08 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c8">
+      <header>
+        <span class="num">Chapter 08</span>
+        <h2>Failures and fixes</h2>
+        <p>Every significant thing that went wrong, what caused it, and how it was found. Including my own mistakes — those are the most useful ones.</p>
+      </header>
+
+      <div class="bug sev">
+        <span class="id">A · SEVERE</span>
+        <h3>Your assets were deleted</h3>
+        <dl>
+          <dt>What</dt><dd><p>While replacing the previous identity's content, I deleted the <code>public/</code> folder believing it belonged to the old site. It contained <strong>your</strong> videos, portrait and spec files.</p></dd>
+          <dt>Caught by</dt><dd><p>You. <em>"DID YOU remove previous public folder all content?? it was my content of moshiours"</em></p></dd>
+          <dt>Recovery</dt><dd><p>Videos from a scratchpad backup made earlier in the session; portrait and specs from your Downloads; posters regenerated from originals.</p></dd>
+          <dt>Changed</dt><dd><p>A gitignored <code>.assets-originals/</code> now holds untouched sources, so every derived asset can be rebuilt without anything outside the project.</p></dd>
+        </dl>
+        <div class="lesson">
+          <span class="tag">Lesson — the most important one here</span>
+          <p>Never delete a directory containing user-supplied material as part of a refactor. Content that <em>looks</em> like it belongs to something being replaced may be the only copy of something irreplaceable. Back up first, delete second, and prefer moving to deleting.</p>
+        </div>
+      </div>
+
+      <div class="bug">
+        <span class="id">B1</span>
+        <h3><code>NotSupportedError</code> on playbackRate</h3>
+        <dl>
+          <dt>Cause</dt><dd><p>My guard stopped at <code>&lt;= 0.06</code>. Blink's actual floor is <strong>1/16 = 0.0625</strong>. The window between them was exactly where it threw.</p></dd>
+          <dt>Real fix</dt><dd><p>The whole rate-driving approach was replaced by baking timing into the file. The constant no longer exists, because nothing sets a rate other than 1.</p></dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <span class="id">B2</span>
+        <h3>My own test failed to catch B1</h3>
+        <dl>
+          <dt>Cause</dt><dd><p>The verification sampled every <strong>1200ms</strong>. The failing rate window lasted less than that, so the test stepped straight over the bug and reported success. Fixed by sampling every 120ms.</p></dd>
+          <dt>Lesson</dt><dd><p>A test that samples more slowly than the phenomenon it watches will report whatever it likes. When testing a transient, your sampling rate is part of the test's correctness.</p></dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <span class="id">C2</span>
+        <h3>The orbit fallback left stale geometry</h3>
+        <dl>
+          <dt>Symptom</dt><dd><p>On a 390px phone the section produced <strong>535px</strong> of content — horizontal overflow.</p></dd>
+          <dt>Cause</dt><dd><p>When there wasn't width to orbit, the code set the layout to <code>ring</code> and then <code>return</code>ed — <em>before</em> measuring ring geometry, leaving placeholder values in place.</p></dd>
+          <dt>Fix</dt><dd><p>Fall <em>through</em> to the ring branch so geometry is actually computed.</p></dd>
+          <dt>Lesson</dt><dd><p>An early return in a measurement function is a trap: you change a mode without producing the values that mode needs.</p></dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <span class="id">C3</span>
+        <h3>Infinite re-measurement</h3>
+        <dl>
+          <dt>Cause</dt><dd><p><code>keepOut</code> is passed as an inline object literal — a new identity every render. With it in the dependency array, the effect re-ran every render, which re-measured, which re-rendered.</p></dd>
+          <dt>Fix</dt><dd><p>Destructure to primitives at the top of the component and depend on those.</p></dd>
+          <dt>Lesson</dt><dd><p>Never put an object or array prop in a dependency array unless the caller memoises it.</p></dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <span class="id">C4</span>
+        <h3>Geometry that depended on scroll position</h3>
+        <dl>
+          <dt>Symptom</dt><dd><p>Content rendered at <code>y = −2415</code> — far off screen.</p></dd>
+          <dt>Cause</dt><dd><p>The keep-out is a share of the <em>viewport</em>, but I computed the host offset from <code>getBoundingClientRect()</code>, which moves as you scroll.</p></dd>
+          <dt>Fix</dt><dd><p>Measure relative to the <strong>section</strong>. Each section is exactly one frame tall, so section and viewport coordinates coincide whenever it's on screen — and the result stops depending on where the page happens to be.</p></dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <span class="id">C6</span>
+        <h3>The negative margin dragged the deck into the heading</h3>
+        <dl>
+          <dt>Cause</dt><dd><p>The padding/negative-margin trick was applied to the <em>same element</em> that carried the height, so the margin pulled that sized box upward.</p></dd>
+          <dt>Fix</dt><dd><p>Split into two elements: <code>.carousel-viewport</code> is the clip box with the ±120px air, <code>.carousel-stage</code> is the sized element.</p></dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <span class="id">F</span>
+        <h3>My own tooling was wrong four times</h3>
+        <p>Each of these was a case where the <em>test</em> was broken, not the code.</p>
+        <div class="tw"><table>
+          <thead><tr><th>What broke</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>A test referenced <code>#experience</code></td><td>The section had been renamed <code>journey</code></td></tr>
+            <tr><td>A test used the <code>cover</code> crop formula</td><td>The code was briefly on <code>contain</code></td></tr>
+            <tr><td>A test measured <code>#projects</code> for the fish</td><td>The fish plate belongs to <code>#research</code></td></tr>
+            <tr><td><code>fit.mjs</code> reported a 7px overflow</td><td>It counted <code>.carousel-viewport</code> — a <strong>transparent</strong> ±120px air box. No card exceeded the frame; the section measured exactly 800px.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="lesson">
+          <span class="tag">Lesson</span>
+          <p>Before believing a failure, ask whether the test still describes reality. An element can be present, sized, and <code>checkVisibility() === true</code> while painting nothing at all. Renamed ids, changed CSS strategies and invisible layout helpers all produce confident, plausible, wrong results.</p>
+        </div>
+      </div>
+
+      <div class="bug">
+        <span class="id">G · ENVIRONMENT</span>
+        <h3>Process problems worth remembering</h3>
+        <ul>
+          <li><strong>Prettier reformatted a file to 80 columns.</strong> The repo is ~100. Always pass <code>--print-width 100</code>.</li>
+          <li><strong>Could not delete the GitHub repo</strong> — the token lacked <code>delete_repo</code>. Force-pushed clean history instead.</li>
+          <li><strong>Could not rename the project folder</strong> — the shell's working directory is pinned, so a folder can't rename itself out from under it.</li>
+          <li><strong><code>Author identity unknown</code> on commit.</strong> Read it from existing history rather than guessing: <code>git log -1 --format='%an &lt;%ae&gt;'</code>.</li>
+          <li><strong>The deploy looked broken but wasn't.</strong> Verification returned zero video layers and no WebGL — because Vercel's deployment protection was returning a 302 to an SSO page. The harness was measuring an auth wall. <em>When every metric reads zero at once, suspect the connection before the code.</em></li>
+          <li><strong>4.7MB of spec files were being served.</strong> Your asset-spec JSON and CSS sat in <code>public/</code>, so they were publicly fetchable. Moved to <code>docs/asset-spec/</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══ 09 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c9">
+      <header>
+        <span class="num">Chapter 09</span>
+        <h2>Extending the site</h2>
+        <p>Recipes for the changes you are most likely to want.</p>
+      </header>
+
+      <h3>Add a background clip</h3>
+      <p>Produce the asset with the ping-pong graph, then <strong>make the phone encode too</strong> — that is what keeps mobile smooth:</p>
+
+      <pre><code>ffmpeg -i public/video/12-new.mp4 -an -vf scale=854:480:flags=lanczos \
+  -c:v libx264 -crf 27 -preset slow -profile:v main -level 3.1 \
+  -pix_fmt yuv420p -movflags +faststart public/video/m/12-new.mp4</code></pre>
+
+      <p>Then register it in <code>lib/backdrops.ts</code>:</p>
+
+      <pre><code>{
+  id: <span class="st">"new-thing"</span>,              <span class="cm">// must match the section id exactly</span>
+  playback: <span class="st">"pingpong"</span>,
+  webm:      <span class="st">"/video/12-new.webm"</span>,
+  mp4:       <span class="st">"/video/12-new.mp4"</span>,
+  mp4Mobile: <span class="st">"/video/m/12-new.mp4"</span>,
+  poster:    <span class="st">"/poster/12-new.jpg"</span>,
+  focus:       <span class="st">"50% 50%"</span>,
+  focusNarrow: <span class="st">"32% 48%"</span>,          <span class="cm">// midpoint of the subject box</span>
+  scrim: <span class="st">"right"</span>,                 <span class="cm">// "left" or "even" as needed</span>
+  alt: <span class="st">"Description, used for the reduced-motion still"</span>,
+}</code></pre>
+
+      <p>Everything else — lazy loading, one-decode-at-a-time, crossfading, reduced-motion fallback, scroll pausing — picks it up automatically.</p>
+
+      <h3>Add a section</h3>
+      <p>Four files, in order: content in <code>lib/content.ts</code>; a component in <code>components/sections/</code>; the id added to <code>SECTION_ORDER</code> in <code>lib/backdrops.ts</code> <em>(this is what binds it to the backdrop engine and the snap)</em>; and composed into <code>app/page.tsx</code>.</p>
+
+      <h3>Change the palette</h3>
+      <p>Change <code>--color-accent</code> in <code>@theme</code> and every accent follows — headings, dots, focus rings, the text gradient, the card glow. If you change <code>--color-bg</code>, also update the scrim gradients, which hard-code <code>rgba(10, 15, 14, …)</code> to match.</p>
+
+      <h3>Adjust a carousel</h3>
+      <pre><code>&lt;Carousel3D
+  variant=<span class="st">"coverflow"</span>    <span class="cm">// "coverflow" | "orbit" | "ring"</span>
+  speed={<span class="st">7</span>}              <span class="cm">// degrees per second while idling</span>
+  budgetVh={<span class="st">52</span>}          <span class="cm">// share of viewport height the deck may use</span>
+  holdMs={<span class="st">2600</span>}          <span class="cm">// pause after a snap, so a card can be read</span>
+/&gt;</code></pre>
+      <p>If a section starts overflowing after you add content, lower <code>budgetVh</code> before touching anything else.</p>
+
+      <div class="lesson">
+        <span class="tag">Before you ship</span>
+        <p><code>npx tsc --noEmit</code> · <code>npm run build</code> · then the harness in chapter 10 against the <strong>production</strong> build. A dev build carries HMR machinery and unminified React — its performance numbers are meaningless.</p>
+      </div>
+    </section>
+
+    <!-- ══ 10 ══════════════════════════════════════════════════════════ -->
+    <section class="chapter" id="c10">
+      <header>
+        <span class="num">Chapter 10</span>
+        <h2>How everything was verified</h2>
+        <p>The measurement harness — thirteen scripts, now in <code>tools/verify/</code>.</p>
+      </header>
+
+      <p>Almost every hard problem here was solved the same way: <strong>write something that can see the problem as a number, then change code until the number is right.</strong> "The cards overlap the fish" is an argument. "19.5% of the subject box is covered" is a fact you can fix and re-check.</p>
+
+      <h3>Techniques worth reusing</h3>
+
+      <h4>Emulate a phone properly</h4>
+      <pre><code><span class="kw">const</span> ctx = <span class="kw">await</span> browser.newContext({
+  viewport: { width: <span class="st">390</span>, height: <span class="st">844</span> },
+  deviceScaleFactor: <span class="st">2</span>,
+  isMobile: <span class="kw">true</span>,
+  hasTouch: <span class="kw">true</span>,   <span class="cm">// ← without this, (pointer: coarse) is false</span>
+});</code></pre>
+      <p><code>hasTouch</code> is the one people forget. Without it, every <code>(pointer: coarse)</code> query evaluates false and you are silently testing the desktop path while believing you are testing mobile.</p>
+
+      <h4>Measure frame times, not vibes</h4>
+      <p>Report the <strong>median, p95 and worst</strong> — an average hides exactly the stutters you're chasing. Count "janky" frames (over ~32ms) as a share of total, and catch long tasks with a <code>PerformanceObserver</code>; <code>longTaskMax</code> is often more diagnostic than the median because it points at one specific bad operation.</p>
+
+      <h4>Census the page structure</h4>
+      <pre><code>backdropFilters: [...document.querySelectorAll(<span class="st">"*"</span>)]
+  .filter(e =&gt; getComputedStyle(e).backdropFilter !== <span class="st">"none"</span>).length</code></pre>
+      <p>These counts are <strong>device-independent</strong> — unlike frame times, they mean the same thing on any machine. When your instrument is unreliable, structural counts are what you can still trust.</p>
+
+      <h4>Always establish a floor</h4>
+      <p>"200ms is bad" is not actionable until you know what the page <em>could</em> reach. Running the same build with video disabled gave 17ms, which proved the entire remaining cost was decode — and therefore that no amount of DOM tuning would help.</p>
+
+      <h4>Prove the negative</h4>
+      <p>One script asserts that a reduced-motion visitor downloads <strong>nothing</strong>. Testing that something does <em>not</em> happen is often more valuable than testing that it does.</p>
+
+      <h4>Measure geometry, not screenshots</h4>
+      <pre><code><span class="kw">const</span> overlap = Math.max(<span class="st">0</span>, Math.min(a.right, b.right) - Math.max(a.left, b.left))
+              * Math.max(<span class="st">0</span>, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+<span class="kw">const</span> pct = (overlap / (b.width * b.height)) * <span class="st">100</span>;</code></pre>
+      <p>This is what turned "the cards are on the fish" into 78% → 19.5% → 0.6%. Screenshots tell you something is wrong; geometry tells you <em>how</em> wrong, and whether your fix helped.</p>
+
+      <h3>Current state — all passing on the live build</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Check</th><th>Scope</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>fit</code></td><td>3 viewports × 7 framed sections</td><td>all fit, 0 errors</td></tr>
+          <tr><td><code>cardcrop</code></td><td>5 decks</td><td>no crop, none over a heading</td></tr>
+          <tr><td><code>navall</code></td><td>5 routes × 2 links</td><td>all land at <code>sectionTop=0</code></td></tr>
+          <tr><td><code>rm-check</code></td><td>reduced motion</td><td>0 videos, 0 overflow</td></tr>
+          <tr><td><code>mobileframe</code></td><td>10 plates at 390×844</td><td>every subject centred, <code>fit=cover</code></td></tr>
+          <tr><td><code>payload</code></td><td>first load</td><td>2421 KB / 3 files / 2 of 11 layers</td></tr>
+          <tr><td><code>find404</code></td><td>whole site</td><td>none</td></tr>
+          <tr><td><code>desktopok</code></td><td>1440×900</td><td>Lenis on, WebGL on, 52 blurs, WebM</td></tr>
+          <tr><td><code>pauseprobe</code></td><td>390×844</td><td><code>/video/m/</code> sources, paused while scrolling</td></tr>
+          <tr><td><code>resume</code></td><td>8 clip sections</td><td>all resume at 1×, exactly one playing</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+  </main>
+
+  <footer class="end">
+    Moshiour Portfolio Handbook · full markdown source in <a href="https://github.com/moshiour0/portfolio">the repo</a> under <code>docs/handbook/</code> · verification harness in <code>tools/verify/</code><br>
+    Site live at <a href="https://moshiour-portfolio.vercel.app">moshiour-portfolio.vercel.app</a>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll(".rail a"));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  function sync() {
+    var best = 0;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= 120) best = i;
+    }
+    for (var j = 0; j < links.length; j++) {
+      links[j].classList.toggle("on", j === best);
+    }
+  }
+
+  var ticking = false;
+  window.addEventListener("scroll", function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { sync(); ticking = false; });
+  }, { passive: true });
+
+  sync();
+})();
+</script>

@@ -14,6 +14,12 @@ export type Backdrop = {
   playback: Playback;
   webm: string;
   mp4: string;
+  /**
+   * Smaller H.264 encode served to phones. Decode cost scales with pixels, and
+   * a phone crops most of the width away anyway, so 854x480 looks the same
+   * there while costing roughly a third of 720p to decode.
+   */
+  mp4Mobile?: string;
   poster: string;
   /**
    * object-position on wide screens, where almost the whole frame is visible.
@@ -46,6 +52,7 @@ export const backdrops: Backdrop[] = [
     playback: "decelerate",
     webm: "/video/01-hero-ascent.webm",
     mp4: "/video/01-hero-ascent.mp4",
+    mp4Mobile: "/video/m/01-hero-ascent.mp4",
     poster: "/poster/01-hero-ascent.jpg",
     focus: "50% 45%",
     focusNarrow: "25% 46%",
@@ -57,6 +64,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/03-projects-depths.webm",
     mp4: "/video/03-projects-depths.mp4",
+    mp4Mobile: "/video/m/03-projects-depths.mp4",
     poster: "/poster/03-projects-depths.jpg",
     focus: "50% 50%",
     focusNarrow: "53% 56%",
@@ -69,6 +77,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/02-experience-canopy.webm",
     mp4: "/video/02-experience-canopy.mp4",
+    mp4Mobile: "/video/m/02-experience-canopy.mp4",
     poster: "/poster/02-experience-canopy.jpg",
     focus: "50% 50%",
     focusNarrow: "31% 56%",
@@ -80,6 +89,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/05-intro-river.webm",
     mp4: "/video/05-intro-river.mp4",
+    mp4Mobile: "/video/m/05-intro-river.mp4",
     poster: "/poster/05-intro-river.jpg",
     focus: "50% 50%",
     focusNarrow: "32% 46%",
@@ -91,6 +101,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/06-pillars-forest.webm",
     mp4: "/video/06-pillars-forest.mp4",
+    mp4Mobile: "/video/m/06-pillars-forest.mp4",
     poster: "/poster/06-pillars-forest.jpg",
     focus: "50% 50%",
     focusNarrow: "32% 48%",
@@ -102,6 +113,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/07-skills.webm",
     mp4: "/video/07-skills.mp4",
+    mp4Mobile: "/video/m/07-skills.mp4",
     poster: "/poster/07-skills.jpg",
     focus: "50% 50%",
     focusNarrow: "45% 44%",
@@ -113,6 +125,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/08-education.webm",
     mp4: "/video/08-education.mp4",
+    mp4Mobile: "/video/m/08-education.mp4",
     poster: "/poster/08-education.jpg",
     focus: "50% 50%",
     focusNarrow: "37% 48%",
@@ -124,6 +137,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/09-achievements-ridge.webm",
     mp4: "/video/09-achievements-ridge.mp4",
+    mp4Mobile: "/video/m/09-achievements-ridge.mp4",
     poster: "/poster/09-achievements-ridge.jpg",
     focus: "50% 45%",
     focusNarrow: "29% 46%",
@@ -135,6 +149,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/10-about-philosophy.webm",
     mp4: "/video/10-about-philosophy.mp4",
+    mp4Mobile: "/video/m/10-about-philosophy.mp4",
     poster: "/poster/10-about-philosophy.jpg",
     focus: "50% 50%",
     focusNarrow: "37% 50%",
@@ -147,6 +162,7 @@ export const backdrops: Backdrop[] = [
     playback: "pingpong",
     webm: "/video/11-exploring.webm",
     mp4: "/video/11-exploring.mp4",
+    mp4Mobile: "/video/m/11-exploring.mp4",
     poster: "/poster/11-exploring.jpg",
     focus: "50% 50%",
     focusNarrow: "75% 44%",
@@ -159,6 +175,7 @@ export const backdrops: Backdrop[] = [
     playback: "decelerate",
     webm: "/video/04-contact-summit.webm",
     mp4: "/video/04-contact-summit.mp4",
+    mp4Mobile: "/video/m/04-contact-summit.mp4",
     poster: "/poster/04-contact-summit.jpg",
     focus: "50% 40%",
     focusNarrow: "37% 50%",

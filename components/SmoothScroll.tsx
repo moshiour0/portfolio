@@ -12,7 +12,16 @@ const IDLE_MS = 130;
 
 export default function SmoothScroll() {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Touch devices keep their native scrolling. Lenis drives scroll from JS,
+    // which on a phone replaces hardware momentum with main-thread work and
+    // makes every frame compete with video decoding and compositing. Native
+    // scroll is both smoother and free there; the proximity snap goes with it,
+    // since snapping fights a finger far more than it fights a wheel.
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches
+    ) {
+      return;
+    }
 
     const lenis = new Lenis({
       duration: 1.05,

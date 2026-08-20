@@ -36,7 +36,7 @@ export function Section({
     <section
       id={id}
       className={`relative px-6 sm:px-10 ${
-        frame ? "flex min-h-[100svh] items-center py-14 md:py-16" : "py-20 md:py-28"
+        frame ? "section-frame flex min-h-[100svh] items-center py-14 md:py-16" : "py-20 md:py-28"
       } ${className}`}
     >
       <div className="mx-auto w-full max-w-6xl">

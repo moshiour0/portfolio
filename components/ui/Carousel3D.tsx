@@ -82,6 +82,13 @@ export default function Carousel3D({
   const [layout, setLayout] = useState<"coverflow" | "ring" | "orbit">(variant);
 
   const [reduced, setReduced] = useState(false);
+  // Coarse pointers skip the per-frame blur: animating `filter` is one of the
+  // most expensive things a mobile GPU can be asked to do, and with five decks
+  // on the page it dominated the frame budget.
+  const [coarse, setCoarse] = useState(false);
+  // Off-screen decks stop animating entirely. Five simultaneous rAF loops were
+  // running whether or not anything was visible.
+  const [onScreen, setOnScreen] = useState(true);
   const [geometry, setGeometry] = useState({
     cardWidth: 320,
     radius: 420,
@@ -120,7 +127,26 @@ export default function Carousel3D({
     const sync = () => setReduced(q.matches);
     sync();
     q.addEventListener("change", sync);
-    return () => q.removeEventListener("change", sync);
+
+    const pointer = window.matchMedia("(pointer: coarse)");
+    const syncPointer = () => setCoarse(pointer.matches);
+    syncPointer();
+    pointer.addEventListener("change", syncPointer);
+
+    return () => {
+      q.removeEventListener("change", sync);
+      pointer.removeEventListener("change", syncPointer);
+    };
+  }, []);
+
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), {
+      rootMargin: "20% 0px",
+    });
+    io.observe(host);
+    return () => io.disconnect();
   }, []);
 
   // Size everything from the container width and the height budget.
@@ -292,7 +318,7 @@ export default function Carousel3D({
           `translate(-50%, -50%) translateX(${x.toFixed(1)}px) translateZ(${z.toFixed(1)}px) ` +
           `rotateY(${rotY.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
         el.style.opacity = Math.max(0, 1 - dist * 0.62).toFixed(3);
-        el.style.filter = dist < 0.35 ? "none" : `blur(${Math.min(3.2, dist * 1.5).toFixed(2)}px)`;
+        el.style.filter = coarse || dist < 0.35 ? "none" : `blur(${Math.min(3.2, dist * 1.5).toFixed(2)}px)`;
         // The centre card stacks above its neighbours and is the only one
         // that takes clicks, so links behind it stay inert.
         // Capped below the section heading: cards pass in front of everything
@@ -336,7 +362,7 @@ export default function Carousel3D({
         const y = st * t + geometry.oy;
         el.style.transform = `translate(-50%, -50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${scale.toFixed(3)})`;
         el.style.opacity = (0.24 + side * 0.76).toFixed(3);
-        el.style.filter = side > 0.86 ? "none" : `blur(${((1 - side) * 2.6).toFixed(2)}px)`;
+        el.style.filter = coarse || side > 0.86 ? "none" : `blur(${((1 - side) * 2.6).toFixed(2)}px)`;
         el.style.zIndex = String(10 + Math.round(side * 20));
         el.style.pointerEvents = side > 0.8 ? "auto" : "none";
       }
@@ -371,11 +397,12 @@ export default function Carousel3D({
     step,
     count,
     layout,
+    coarse,
   ]);
 
   // The render loop.
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || !onScreen) return;
 
     let frame = 0;
     let last = performance.now();
@@ -432,7 +459,7 @@ export default function Carousel3D({
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [count, holdMs, paint, reduced, speed, step]);
+  }, [count, holdMs, paint, reduced, onScreen, speed, step]);
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (reduced) return;

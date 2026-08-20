@@ -66,7 +66,17 @@ export default function Scene({ className = "" }: { className?: string }) {
 
     const smallOrTouch = window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
     const weakCPU = (navigator.hardwareConcurrency ?? 8) <= 4;
-    setTier(smallOrTouch || weakCPU ? MOBILE : DESKTOP);
+
+    // On a phone the mesh is behind a playing clip almost everywhere, and the
+    // frame budget is better spent on the video. Skip it entirely; the aurora
+    // gradient underneath still carries the section that has no clip.
+    if (smallOrTouch) {
+      setSupported(false);
+      setReady(true);
+      return;
+    }
+
+    setTier(weakCPU ? MOBILE : DESKTOP);
 
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const syncMotion = () => setAnimate(!motionQuery.matches);

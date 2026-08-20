@@ -24,7 +24,15 @@ export default function VideoBackdrop() {
   // reduced-motion or Save-Data visitor must not fetch a clip before the
   // check below has had a chance to run.
   const [motion, setMotion] = useState(false);
+  // Phones get the smaller H.264 encode, and get it first: VP9 hardware decode
+  // is inconsistent on mobile while H.264 is universal, so offering WebM first
+  // there can silently drop a phone into a software decoder.
+  const [narrow, setNarrow] = useState(false);
   const [armed, setArmed] = useState<Set<string>>(() => new Set(["hero"]));
+  // On touch devices the clip is paused while the page is actually moving.
+  // Decoding competes with scrolling for the same budget, and nobody is
+  // studying the backdrop mid-flick — it resumes the moment you stop.
+  const [scrolling, setScrolling] = useState(false);
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 
   // Decide once whether moving video is appropriate for this visitor.
@@ -32,16 +40,35 @@ export default function VideoBackdrop() {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const conn = (navigator as Navigator & { connection?: NetworkInfo }).connection;
 
+    // Deliberately conservative: a mid-range phone decodes these clips in
+    // hardware and should keep them. Only a genuinely low-end device — where
+    // decoding would cost the scroll its frame budget — falls back to stills.
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const weakDevice =
+      (nav.deviceMemory !== undefined && nav.deviceMemory <= 2) ||
+      (navigator.hardwareConcurrency !== undefined && navigator.hardwareConcurrency <= 2);
+
     const sync = () => {
       const frugal = Boolean(
-        conn?.saveData || (conn?.effectiveType && /(^|-)2g$/.test(conn.effectiveType)),
+        conn?.saveData ||
+        (conn?.effectiveType && /(^|-)2g$/.test(conn.effectiveType)) ||
+        weakDevice,
       );
       setMotion(!motionQuery.matches && !frugal);
     };
 
     sync();
     motionQuery.addEventListener("change", sync);
-    return () => motionQuery.removeEventListener("change", sync);
+
+    const narrowQuery = window.matchMedia("(max-width: 900px), (pointer: coarse)");
+    const syncNarrow = () => setNarrow(narrowQuery.matches);
+    syncNarrow();
+    narrowQuery.addEventListener("change", syncNarrow);
+
+    return () => {
+      motionQuery.removeEventListener("change", sync);
+      narrowQuery.removeEventListener("change", syncNarrow);
+    };
   }, []);
 
   // Track which section owns the viewport, sampled inside rAF.
@@ -78,6 +105,23 @@ export default function VideoBackdrop() {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: coarse)").matches) return;
+
+    let idle: ReturnType<typeof setTimeout> | undefined;
+    const onScroll = () => {
+      setScrolling(true);
+      clearTimeout(idle);
+      idle = setTimeout(() => setScrolling(false), 180);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      clearTimeout(idle);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -128,6 +172,11 @@ export default function VideoBackdrop() {
     const el = backdrop ? videoRefs.current[activeId] : null;
     if (!backdrop || !el || !motion) return;
 
+    if (scrolling) {
+      if (!el.paused) el.pause();
+      return;
+    }
+
     let frame = 0;
     const play = () => {
       const attempt = el.play();
@@ -154,7 +203,7 @@ export default function VideoBackdrop() {
     if (el.currentTime > 0 && el.ended) el.currentTime = 0;
     play();
     return () => el.pause();
-  }, [activeId, motion]);
+  }, [activeId, motion, scrolling]);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
@@ -190,12 +239,19 @@ export default function VideoBackdrop() {
               // eslint-disable-next-line jsx-a11y/media-has-caption
               tabIndex={-1}
             >
-              {isArmed && motion && (
-                <>
-                  <source src={backdrop.webm} type="video/webm" />
-                  <source src={backdrop.mp4} type="video/mp4" />
-                </>
-              )}
+              {isArmed &&
+                motion &&
+                (narrow ? (
+                  <>
+                    {backdrop.mp4Mobile && <source src={backdrop.mp4Mobile} type="video/mp4" />}
+                    <source src={backdrop.mp4} type="video/mp4" />
+                  </>
+                ) : (
+                  <>
+                    <source src={backdrop.webm} type="video/webm" />
+                    <source src={backdrop.mp4} type="video/mp4" />
+                  </>
+                ))}
             </video>
           </div>
         );

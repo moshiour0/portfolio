@@ -261,6 +261,53 @@ html.lenis body {
   font-size: clamp(0.78rem, 1.6vh, 0.9rem);
 }
 
+/* ---------- Mobile performance ----------
+   Profiled on a 4x-throttled phone: median frame 267ms, 83 of 86 frames janky,
+   long tasks up to 774ms. The page carried 48 backdrop-filter elements and 93
+   blurred ones. Each backdrop-filter forces its own compositing layer and
+   re-blurs everything behind it every frame — with thirty-odd glass cards over
+   a playing video that is the entire frame budget.
+
+   On coarse pointers the glass becomes flat translucency instead. It looks
+   near-identical over a dark scrim and costs nothing. Desktop keeps the blur. */
+@media (pointer: coarse) {
+  .card-face,
+  .backdrop-blur-md,
+  .backdrop-blur-xl,
+  .backdrop-blur-sm,
+  .backdrop-blur {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .card-face {
+    background:
+      linear-gradient(165deg, #eef2ec12 0%, #eef2ec06 42%, #eef2ec03 100%), rgba(10, 15, 14, 0.93);
+  }
+
+  /* Decorative blurs are pure cost on a phone. */
+  .spiral-glow {
+    filter: none;
+    animation: none;
+  }
+
+  .hero-orb {
+    filter: blur(28px);
+    animation: none;
+  }
+
+  /* The reveal keeps its fade and lift; the blur is what was expensive. */
+  .reveal {
+    filter: none;
+  }
+
+  /* Feathering the deck edges is a full-surface mask on every frame. */
+  .carousel-viewport {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
 /* ---------- Backdrop framing ----------
    A 16:9 plate on a 390x844 phone can only show ~26% of its width once it
    fills the height. Which 26% is the whole question: centred on the frame it
@@ -368,8 +415,7 @@ html.lenis body {
   background:
     radial-gradient(58% 46% at 68% 34%, #16211c 0%, transparent 62%),
     radial-gradient(48% 44% at 18% 78%, #141d22 0%, transparent 60%),
-    radial-gradient(60% 50% at 50% 8%, #1b2418 0%, transparent 64%),
-    #0a0f0e;
+    radial-gradient(60% 50% at 50% 8%, #1b2418 0%, transparent 64%), #0a0f0e;
   background-size:
     140% 140%,
     150% 150%,
@@ -447,8 +493,7 @@ html.lenis body {
 /* Card face used inside the rotating ring — readable over the live backdrop. */
 @utility card-face {
   background:
-    linear-gradient(165deg, #eef2ec10 0%, #eef2ec05 42%, #eef2ec02 100%),
-    rgba(10, 15, 14, 0.86);
+    linear-gradient(165deg, #eef2ec10 0%, #eef2ec05 42%, #eef2ec02 100%), rgba(10, 15, 14, 0.86);
   border: 1px solid var(--color-line-strong);
   border-radius: 1.5rem;
   backdrop-filter: blur(18px);
@@ -496,5 +541,18 @@ html.lenis body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * Short desktop viewports (1280x800 and similar laptops) have ~80px less room
+ * than a 900px-tall screen, and the coverflow deck is sized from the cards
+ * rather than clipped to a budget — so the padding yields instead of the
+ * cards. Cropping the cards is what this design deliberately does not do.
+ */
+@media (min-width: 768px) and (max-height: 860px) {
+  .section-frame {
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
   }
 }
